@@ -1,0 +1,16 @@
+extends layout
+block content
+  -if(req.session.listaAsignaturas.length > 0)
+    div
+      div.col-xs-12.col-sm-12.col-md-6.col-lg-6.col-xs-offset-0.col-sm-offset-0.col-md-offset-3.col-lg-offset-3.toppad
+        div.row
+          -each item in req.session.listaAsignaturas
+            ul.nav.nav-pills.nav-stacked
+              li.list-group-item
+                a(href="/asignaturas/#{item._id}") #{item.nombre}
+                -if(req.session.rol == "profesor")
+                  a.btn.btn-default(href="/asignaturas/#{item._id}/edit") Editar
+
+
+
+                  

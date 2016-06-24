@@ -1,0 +1,8 @@
+repo: 5de843ec669980bb05d594ba8b1bc01950606cbe
+node: 9e39d118ee46102f16d3fdce5af47b9d8f3397dd
+branch: default
+latesttag: asignaturas
+latesttag: corregido
+latesttag: de
+latesttagdistance: 31
+changessincelatesttag: 31

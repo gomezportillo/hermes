@@ -1,0 +1,28 @@
+extends ../layout
+block content
+  .container             
+    div.col-xs-12.col-sm-12.col-md-6.col-lg-6.col-xs-offset-0.col-sm-offset-0.col-md-offset-3.col-lg-offset-3.toppad
+      form.panel.panel-info.form-horizontal(method="post", action="#{action}")
+        div.panel-heading
+          h3.panel-title Asignatura
+        div.panel-body
+            -if(put)
+              input(type="hidden", name="_method", value="PUT")
+            div.form-group
+              label.col-sm-3.control-label Nombre
+              div.col-sm-9
+                input.form-control(type="text", name="nombre", required="required", value="#{asignatura.nombre}")
+            div.form-group
+              label.col-sm-3.control-label Informacion
+              div.col-sm-9
+                textarea.form-control(name="informacion",required="required", value="#{asignatura.informacion}")
+            div.form-group
+              label.col-sm-3.control-label URL
+              div.col-sm-9
+                input.form-control(type="url", name="url_descarga", required="required", value="#{asignatura.url_descarga}")
+        div.panel-footer
+          input.btn.btn-primary(type="submit", value="Guardar")
+          span 
+          a.btn.btn-primary(href="/asignaturas") Cancelar
+
+  

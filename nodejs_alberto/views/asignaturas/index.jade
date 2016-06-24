@@ -1,0 +1,40 @@
+extends ../layout
+block content
+  -if(asignaturas.length > 0)
+    div.panel.panel-info
+      div.panel-heading 
+        h3.panel-title Asignaturas
+      .panel-body
+        table.table
+          thead
+            tr
+              th Nombre
+              th Información
+              th
+              th
+              th
+              th
+              th
+          tbody
+            -each item in asignaturas
+              tr
+                td #{item.nombre}
+                td #{item.informacion}
+                td 
+                  a(href="/asignaturas/#{item._id}") Ver
+                td 
+                  a(href="/asignaturas/#{item._id}/edit") Editar
+                td 
+                  a(href="/asignaturas/#{item._id}/users") Añadir alumnos
+                -if(req.session.rol=="admin")
+                  td 
+                    a(href="/asignaturas/#{item._id}/profesors") Añadir Profesores
+                td
+                  form(method="post", action="/asignaturas/#{item._id}")
+                    input(type="hidden", name="_method", value="DELETE")
+                    a(href="javascript:void(0);", onclick="if(confirm('¿Está seguro que desea eliminar este registro?')){this.parentNode.submit();}") Eliminar
+      div.panel-footer
+        a.btn.btn-primary(href="/asignaturas/create") Crear nueva asignatura        
+  -else
+    p.text-danger No existen asignaturas creadas
+      a.btn.btn-primary(href="/asignaturas/create") Crear nueva asignatura        
