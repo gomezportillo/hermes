@@ -3,19 +3,21 @@ var url = require("url");
 
 function iniciar(route) {
 
-  function onRequest(request, response) {
+  function onRequest(request, response)
+  {
     var pathname = url.parse(request.url).pathname;
-    if(pathname != "/favicon.ico") {
-
-      var data = "";
+    if(pathname != "/favicon.ico")
+    {
+      var data_posted = "";
 
       request.setEncoding("utf-8");
-      request.addListener("data", function(chunck) {
-        data += chunck;
+      request.addListener("data", function(chunck)
+      {
+        data_posted += chunck;
       });
-
-      request.addListener("end", function() {
-        route(pathname, response, data);
+      request.addListener("end", function()
+      {
+        route(pathname, response, data_posted);
       });
     }
   }

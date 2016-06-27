@@ -1,16 +1,17 @@
+<!DOCTYPE html>
 <html>
 <head>
   <title>Hermes - Estudiante</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
 </head>
 
 <body>
   <h3>Bienvenido al chat</h3>
   <blockquote>
     <p>Escribe tu pregunta</p>
-    <form action="/subir" method="post">
-      <input type="text" name="Pregunta"><br>
-      <input type="submit" value="Enviar pregunta" />
+    <form method="post">
+      <input type="text" name="pregunta" enctype="multipart/form-data"><br>
+      <input type="submit" value="Enviar pregunta"/>
     </form>
   </blockquote>
 
