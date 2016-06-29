@@ -1,0 +1,12 @@
+{
+  "name": "Hermes",
+  "version": "0.1.0",
+  "description": "Embedded real-time chat and YouTube player",
+  "main": "index.js",
+  "repository": "",
+  "author": "C:TED <cted@uclm.es>",
+  "dependencies": {
+    "express": "~3.2.4",
+    "socket.io": "~0.9.14"
+  }
+}
