@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Hermes - Profesor  </title>
+    <title>Hermes - Profesor</title>
 
     <script src="https://code.jquery.com/jquery.js"></script>
     <link rel="shortcut icon" type="image/png" href="/favicon.png">
@@ -35,11 +35,9 @@
         overflow: auto;
     }
     </style>
-
 </head>
 
 <body>
-
     <div class="container">
         <!--HEADER-->
         <div class="page-header">
@@ -49,6 +47,7 @@
             </h1>
         </div>
         <br/>
+
         <!--USERS-->
         <div class="col-md-3">
             <div class="panel panel-info">
@@ -57,7 +56,6 @@
                 </div>
             </div>
         </div>
-
 
         <!--CHAT-->
         <div id="chatWrap"  class="col-md-9">
@@ -74,15 +72,9 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
     jQuery(function($) {
-        var socket = io.connect();
-        var $messageForm = $('#send-message');
-        var $messageBox = $('#message');
-        var $chat = $('#chat');
-        var $buttonSend = $('#send');
-        var $nickForm = $('#setNick');
-        var $nickBox = $('#nickname');
-        var $users = $('#users');
-        var $closeAlert = $('#closeAlert');
+        var socket = io.connect(),
+            $chat = $('#chat'),
+            $users = $('#users');
 
         socket.on('new message', function(data) {
             $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
@@ -95,7 +87,6 @@
             }
             $users.html(users);
         });
-
     });
 
     </script>
