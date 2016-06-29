@@ -6,6 +6,7 @@ Embedded real-time chat and YouTube player using Node.js and bootstrap
 </p>
 
 1.Install [Node.js](https://nodejs.org/)
+
 2.Install dependecies as
 ```
 npm Install
