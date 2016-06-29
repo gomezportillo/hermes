@@ -4,8 +4,9 @@ var express = require('express'),
     io = require("socket.io").listen(server),
     nicknames = {};
 
-server.listen(8080);
+app.use(express.static(__dirname + '/images'));
 
+server.listen(8080);
 app.get('/', function(req, res) {
     res.sendfile('pages/student.html');
 });
