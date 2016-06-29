@@ -5,6 +5,7 @@ var express = require('express'),
     nicknames = {};
 
 server.listen(8080);
+
 app.get('/', function(req, res) {
     res.sendfile('pages/student.html');
 });
