@@ -6,7 +6,10 @@ var express = require('express'),
 
 server.listen(8080);
 app.get('/', function(req, res) {
-    res.sendfile('pages/index.html');
+    res.sendfile('pages/student.html');
+});
+app.get('/admin', function(req, res) {
+    res.sendfile('pages/professor.html');
 });
 
 io.sockets.on('connection', function(socket) {
