@@ -1,31 +1,36 @@
 <html>
 <head>
-    <title>Hermes</title>
-    <style>
-    #contentWrap{
-        display: none;
-    }
-    #chatWrap{
-        float: left;
-    }
-    #chat{
-        position: relative;
-        width: 100%;
-        float:left;
-        min-height:100px;
-        height: 90%;
-        overflow: auto;
-    }
-    img {
-        width:100%;
-    }
-    </style>
+    <title>Hermes - Estudiante  </title>
 
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- BOOTSTRAP -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <!-- ARCHIVO NARROW-->
+    <link href="http://fonts.googleapis.com/css?family=Tangerine" rel="stylesheet" type="text/css" />
+
+    <style>
+        #contentWrap{
+            display: none;
+        }
+        #chatWrap{
+            float: left;
+        }
+        #chat{
+            position: relative;
+            width: 100%;
+            float:left;
+            min-height:100px;
+            height: 90%;
+            overflow: auto;
+        }
+        h1 {
+            font-family: 'Archivo Narrow';
+            font-size: '500%'
+        }
+    </style>
+
 </head>
 
 <body>
@@ -33,19 +38,23 @@
     <div class="container">
 
         <div class="page-header">
-            <h1><img src="http://static.planetminecraft.com/files/avatar/1887593_1.png" style="width:60px;height:60px;"/>Hermes <small>es un proyecto del <a href="http://blog.uclm.es/cted" target="_blank">C:TED</a></small></h1>
+            <h1>
+                <a href="/"><img src="https://github.com/gomezportillo/hermes/blob/master/hermes/images/hermes-logo-medium.png?raw=true" width="45px" height="45px"/></a>
+                Hermes <small>es un proyecto del <a href="http://blog.uclm.es/cted" target="_blank">C:TED</a></small></h1>
         </div>
 
-        <div class="input-group" style="width:300px;text-align:center;margin:0 auto;" id="nickWrap">
-            <input id="nickname" class="form-control input-lg" type="text" placeholder="Enter your username">
+        <br/><br/><br/><br/><br/><br/>
+        <div class="input-group" style="width:600px;text-align:center;margin:0 auto;" id="nickWrap">
+            <input id="nickname" class="form-control input-lg" type="text" placeholder="Escriba su nombre">
             <span class="input-group-btn">
-                <button class="btn btn-lg btn-primary" type="submit" id="setNick">OK</button>
+                <button class="btn btn-lg btn-primary" type="submit" id="setNick">Entrar at chat</button>
             </span>
         </div>
 
         <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="login-error" style="display:none;">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <button type="button" class="close" id="closeAlert">×</button>
-            That username is already taken. Try again.
+            Ya hay un usuario con este nombre. Por favor elija otro.
         </div>
 
         <div id="contentWrap" class="row fade in " style="height: 70%;">
@@ -60,7 +69,7 @@
                     <form id="send-message" class="input-group" style="text-align:center;margin:0 auto;">
                         <input id="message" class="form-control input-lg" type="text">
                         <span class="input-group-btn">
-                            <button class="btn btn-lg btn-primary" type="submit">Send</button>
+                            <button class="btn btn-lg btn-primary" type="submit">Enviar pregunta</button>
                         </span>
                     </form>
                 </div>
