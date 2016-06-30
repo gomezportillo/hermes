@@ -50,13 +50,16 @@
         <br/>
 
         <!--LOG IN-->
-        <div class="input-group" style="width:600px;text-align:center;margin:0 auto;" id="nickWrap">
-            <br/><br/><br/><br/><br/><br/>
-            <input id="nickname" class="form-control input-lg" type="text" placeholder="Escriba su nombre">
-            <span class="input-group-btn">
+        <div>
+            <div id="some-space">
                 <br/><br/><br/><br/><br/><br/>
-                <button class="btn btn-lg btn-primary" type="submit" id="setNick">Entrar at chat</button>
-            </span>
+            </div>
+            <div class="input-group" style="width:600px;text-align:center;margin:0 auto;" id="nickWrap">
+                <input id="nickname" class="form-control input-lg" type="text" placeholder="Escriba su nombre">
+                <span class="input-group-btn">
+                    <button class="btn btn-lg btn-primary" type="submit" id="setNick">Entrar at chat</button>
+                </span>
+            </div>
         </div>
 
         <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="login-error" style="display:none;">
@@ -110,14 +113,14 @@
     <script>
     jQuery(function($) {
         var socket = io.connect(),
-            $messageForm = $('#send-message'),
-            $messageBox = $('#message'),
-            $chat = $('#chat'),
-            $nickForm = $('#setNick'),
-            $buttonSend = $('#send'),
-            $nickBox = $('#nickname'),
-            $users = $('#users'),
-            $closeAlert = $('#closeAlert');
+        $messageForm = $('#send-message'),
+        $messageBox = $('#message'),
+        $chat = $('#chat'),
+        $nickForm = $('#setNick'),
+        $buttonSend = $('#send'),
+        $nickBox = $('#nickname'),
+        $users = $('#users'),
+        $closeAlert = $('#closeAlert');
 
         $nickForm.click(function(e) {
             e.preventDefault();
@@ -126,6 +129,7 @@
                     $('#nickWrap').hide();
                     $('#contentWrap').show();
                     $("#login-error").hide();
+                    $("#some-space").hide();
                 } else {
                     $("#login-error").show();
                 }
