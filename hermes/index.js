@@ -8,10 +8,10 @@ app.use(express.static(__dirname + '/images'));
 
 server.listen(8080);
 app.get('/', function(req, res) {
-    res.sendfile('pages/student.html');
+    res.sendfile('hermes/pages/student.html');
 });
 app.get('/admin', function(req, res) {
-    res.sendfile('pages/professor.html');
+    res.sendfile('hermes/pages/professor.html');
 });
 
 io.sockets.on('connection', function(socket) {

@@ -25,7 +25,7 @@ class HermesApp:
         self.buildGUI()
 
     def buildGUI(self):
-        gladefile = os.path.join('glade', 'hermes.glade')
+        gladefile = os.path.join('hermes', 'glade', 'hermes.glade')
         self.builder = gtk.Builder()
         self.builder.add_from_file(gladefile)
 
@@ -52,7 +52,7 @@ class HermesApp:
             if (url != ""):
                 self.set_youtube_url(url)
 
-            cmd_line = "node index.js"
+            cmd_line = "node hermes/index.js"
             self.nodejs_proccess = subprocess.Popen(cmd_line, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
         else:
