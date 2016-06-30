@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8; tab-width:4 -*-
 
-import os
+import os, signal
 import sys
 import socket
 import codecs
@@ -53,12 +53,11 @@ class HermesApp:
                 self.set_youtube_url(url)
 
             cmd_line = "node index.js"
-            p = subprocess.Popen(cmd_line, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
-
+            self.nodejs_proccess = subprocess.Popen(cmd_line, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
         else:
             self.state = State.stopped
+            self.nodejs_proccess.kill()
             button = self.builder.get_object('start-button')
             button.set_label('Iniciar servidor')
 
