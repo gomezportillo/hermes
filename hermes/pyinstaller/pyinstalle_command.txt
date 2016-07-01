@@ -1,0 +1,6 @@
+pyinstaller --onefile --icon=icono.ico --version-file=version.txt launcher.py
+
+--No funciona con la opcion --windowed
+
+https://mborgerson.com/creating-an-executable-from-a-python-script
+http://pythonhosted.org/PyInstaller/when-things-go-wrong.html#recipes-and-examples-for-specific-problems
