@@ -1,5 +1,5 @@
 #Hermes
-Hermes es un herramienta que permite levantar un servidor con Node.js con un chat en tiempo real y un vídeo de YouTube embebido
+Hermes es un herramienta que permite levantar un servidor con Node.js con un chat en tiempo real y un vídeo de YouTube embebido.
 
 <p align="center">
   <img width="200" height=210" src=https://github.com/gomezportillo/hermes/blob/master/hermes/images/hermes-logo.png?raw=true" alt="Hermes"/>
@@ -18,7 +18,7 @@ python launcher.py
   <img src=https://github.com/gomezportillo/hermes/blob/master/hermes/images/gui.png?raw=true" alt="GUI"/>
 </p>
 
-2.Si Python no se encuentra en su sistema
+##Si Python no se encuentra en su sistema
 En el mismo directorio raiz, ejecute
 ```
 node hermes/index.js
