@@ -5,11 +5,12 @@ Hermes es un herramienta que permite levantar un servidor con Node.js con un cha
   <img width="200" height=210" src=https://github.com/gomezportillo/hermes/blob/master/hermes/images/hermes-logo.png?raw=true" alt="Hermes"/>
 </p>
 
+##Instalación y ejecución
 Para ejecutar Hermes necesita tener instalado [Node.js](https://nodejs.org/) en su sistema.
 
 Hay dos formas de lanzar Hermes:
 
-##Si tiene Python instalado
+###Si tiene Python instalado
 Ssitúese  en el directorio raiz del proyecto y ejecute
 ```
 python launcher.py
@@ -18,12 +19,21 @@ python launcher.py
   <img src=https://github.com/gomezportillo/hermes/blob/master/hermes/images/gui.png?raw=true" alt="GUI"/>
 </p>
 
-##Si Python no se encuentra en su sistema
+###Si Python no se encuentra en su sistema
 En el mismo directorio raiz, ejecute
 ```
 node hermes/index.js
 ```
 Aunque si quiere editar la URL del vídeo tendrá que editar a mano el archivo *./hermes/pages/student.html*
+
+
+##Uso
+Hermes se ejecuta en el puerto :8080.
+
+Para que los alumnos se conecten a Hermes deben estar en la misma red que usted. Tendrán que abrir un navegador y dirijirse a la URL que le proporciona el launcher. Si no está usando el launcher, la URL de Hermes será SU_IP_PRIVADA:8080.
+
+Para simplemente ver el chat, vaya a SU_IP_PRIVADA:8080/admin.
+
 
 ##Issues
 Si tiene algún problema con las dependecias socket.io o express, muévase a *./hermes* y ejecute
