@@ -14,6 +14,8 @@ except Exception as e:
     print('GTK Not Available: {}'.format(e))
     sys.exit(1)
 
+VERSION = '0.1.0.20160107'
+
 class State:
     stopped = 0
     running = 1
@@ -36,7 +38,7 @@ class HermesApp:
         }
         self.builder.connect_signals(handlers)
 
-        self.builder.get_object('ip-entry').set_text(self.get_self_ip()+':8080')
+        self.builder.get_object('ip-entry').set_text('http://'+self.get_self_ip()+':8080')
 
         self.window = self.builder.get_object('main_window')
         self.window.connect('destroy', gtk.main_quit)
@@ -63,7 +65,7 @@ class HermesApp:
 
     def show_about(self, button):
         self.dialog = gtk.AboutDialog()
-        self.dialog.set_name('Hermes')
+        self.dialog.set_name('Hermes v' + VERSION + '\n')
         self.dialog.set_authors(['Hermes es un proyecto del C:TED'])
         self.dialog.run()
         self.dialog.destroy()

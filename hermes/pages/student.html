@@ -18,7 +18,7 @@
     body {
         font-family: 'Archivo Narrow' !important;
         font-size: 18px;
-        background-color:FDFFFF;">
+        background-color:FCFFFF;">
     }
     #contentWrap{
         display: none;
@@ -54,11 +54,13 @@
             <div id="some-space">
                 <br/><br/><br/><br/><br/><br/>
             </div>
-            <div class="input-group" style="width:600px;text-align:center;margin:0 auto;" id="nickWrap">
-                <input id="nickname" class="form-control input-lg" type="text" placeholder="Escriba su nombre">
-                <span class="input-group-btn">
-                    <button class="btn btn-lg btn-primary" type="submit" id="setNick">Entrar at chat</button>
-                </span>
+            <div>
+                <form id="nickWrap" class="input-group" style="width:600px;text-align:center;margin:0 auto;">
+                    <input id="nickname" class="form-control input-lg" type="text" placeholder="Escriba su nombre">
+                    <span class="input-group-btn">
+                        <button class="btn btn-lg btn-primary" type="submit" id="setNick">Entrar al chat</button>
+                    </span>
+                </form>
             </div>
         </div>
 
@@ -68,13 +70,19 @@
             Ya hay un usuario con este nombre. Por favor elija otro.
         </div>
 
+        <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="user-void" style="display:none;">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <button type="button" class="close" id="closeAlert">×</button>
+            Por favor escriba su nombre.
+        </div>
+
 
         <div id="contentWrap" class="row" style="height: 70%;">
 
             <!--VIDEO-->
             <div id="videoWrap" class="col-md-5">
                 <center>
-                    <iframe width="420" height="315"  src="http://youtube.com/embed/9Z6cVUOhLDw"/></iframe>
+                    <iframe width="420" height="315" src="http://youtube.com/embed/9Z6cVUOhLDw"/></iframe>
                 </center>
                 <br/><br/><br/><br/>
 
@@ -98,7 +106,7 @@
                 </div>
                 <div>
                     <form id="send-message" class="input-group" style="text-align:center;margin:0 auto;">
-                        <input id="message" class="form-control input-lg" type="text">
+                        <input id="message" class="form-control input-lg" type="text" placeholder="Escriba su pregunta">
                         <span class="input-group-btn">
                             <button class="btn btn-lg btn-primary" type="submit">Enviar pregunta</button>
                         </span>
@@ -124,21 +132,22 @@
 
         $nickForm.click(function(e) {
             e.preventDefault();
-            socket.emit('new user', $nickBox.val(), function(data) {
-                if(data) {
-                    $('#nickWrap').hide();
-                    $('#contentWrap').show();
-                    $("#login-error").hide();
-                    $("#some-space").hide();
-                } else {
-                    $("#login-error").show();
-                }
-            });
+            if($nickBox.val()) {
+                socket.emit('new user', $nickBox.val(), function(nick_available) {
+                    if(nick_available) {
+                        $('#nickWrap').hide();
+                        $('#contentWrap').show();
+                        $("#login-error").hide();
+                        $("#user-void").hide();
+                        $("#some-space").hide();
+                    } else {
+                        $("#login-error").show();
+                    }
+                });
+            } else {
+                $("#user-void").show();
+            }
             $nickBox.val('');
-        });
-
-        $closeAlert.click(function(e) {
-            $("#login-error").hide();
         });
 
         $messageForm.submit(function(e) {
@@ -153,10 +162,10 @@
             $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
         });
 
-        socket.on('usernames', function(data) {
+        socket.on('usernames', function(all_users) {
             var users = '';
-            for (var username in data) {
-                users += username + '<br/>';
+            for (var name in all_users) {
+                users += name + '<br/>';
             }
             $users.html(users);
         });
