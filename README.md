@@ -5,7 +5,7 @@ Hermes es un herramienta que permite levantar un servidor con Node.js con un cha
   <img width="200" height=210" src=https://github.com/gomezportillo/hermes/blob/master/hermes/images/hermes-logo.png?raw=true" alt="Hermes"/>
 </p>
 
-Para ejecutar Hermes necesita instalar [Node.js](https://nodejs.org/) en su sistema.
+Para ejecutar Hermes necesita tener instalado [Node.js](https://nodejs.org/) en su sistema.
 
 Hay dos formas de lanzar Hermes:
 
@@ -23,10 +23,10 @@ En el mismo directorio raiz, ejecute
 ```
 node hermes/index.js
 ```
-Aunque si quiere editar la URL del vídeo tendrá que editar a mano el archivo ./hermes/pages/student.html
+Aunque si quiere editar la URL del vídeo tendrá que editar a mano el archivo *./hermes/pages/student.html*
 
 ##Issues
-Si tiene algún problema con las dependecias socket.io o express, muévase a ./hermes y ejecute
+Si tiene algún problema con las dependecias socket.io o express, muévase a *./hermes* y ejecute
 ```
 npm install
 ```  
