@@ -9,7 +9,8 @@ Para ejecutar Hermes necesita instalar [Node.js](https://nodejs.org/) en su sist
 
 Hay dos formas de lanzar Hermes:
 
-1. Si tiene Python instalado, sitúese  en el directorio raiz del proyecto y ejecute
+##Si tiene Python instalado
+Ssitúese  en el directorio raiz del proyecto y ejecute
 ```
 python launcher.py
 ```  
@@ -17,14 +18,14 @@ python launcher.py
   <img src=https://github.com/gomezportillo/hermes/blob/master/hermes/images/gui.png?raw=true" alt="GUI"/>
 </p>
 
-2. Si no, en el mismo directorio raiz ejecute
-3.Execute index.js
+2.Si Python no se encuentra en su sistema
+En el mismo directorio raiz, ejecute
 ```
 node hermes/index.js
 ```
 Aunque si quiere editar la URL del vídeo tendrá que editar a mano el archivo ./hermes/pages/student.html
 
-
+##Issues
 Si tiene algún problema con las dependecias socket.io o express, muévase a ./hermes y ejecute
 ```
 npm install
