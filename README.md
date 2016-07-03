@@ -24,7 +24,7 @@ En el mismo directorio raiz, ejecute
 ```
 node hermes/index.js
 ```
-Aunque si quiere editar la URL del vídeo tendrá que editar a mano el archivo *./hermes/pages/student.html*
+Aunque si quiere editar la URL del vídeo tendrá que editar a mano el archivo [*./hermes/pages/student.html*](https://github.com/gomezportillo/hermes/blob/master/hermes/pages/student.html#L85)
 
 
 ##Uso
