@@ -43,6 +43,7 @@
 
 <body>
     <div class="container">
+
         <!--HEADER-->
         <div class="page-header">
             <h1>
@@ -67,12 +68,14 @@
             </div>
         </div>
 
+        <!--LOG IN ERROR - USER EXISTS-->
         <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="login-error" style="display:none;">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <button type="button" class="close" id="closeAlert">×</button>
             Ya hay un usuario con este nombre. Por favor elija otro.
         </div>
 
+        <!--LOG IN ERROR - BLANK NAME-->
         <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="user-void" style="display:none;">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <button type="button" class="close" id="closeAlert">×</button>
@@ -107,7 +110,7 @@
                         <!--center><b>Bienvenido al chat<br/></b></center-->
                     </div>
                     <div>
-                        <form id="send-message" class="input-group" style="text-align:center;margin:0 auto;">
+                        <form id="send-message" class="input-group">
                             <input id="message" class="form-control input-lg" type="text" placeholder="Escriba su pregunta">
                             <span class="input-group-btn">
                                 <button class="btn btn-lg btn-primary" type="submit">Enviar pregunta</button>
