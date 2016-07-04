@@ -34,6 +34,9 @@
         height: 90%;
         overflow: auto;
     }
+    .well {
+        background: rgb(250, 250, 250);
+    }
     </style>
 </head>
 
@@ -49,18 +52,18 @@
         <br/>
 
         <!--USERS-->
-        <div class="col-md-3">
-            <div class="panel panel-info">
-                <div class="panel-heading">Usuarios conectados</div>
+        <div class="col-md-4">
+            <div class="well well-sm">
+                <legend class="the-legend">Usuarios conectados</legend>
                 <div id="users" class="panel-body">
                 </div>
             </div>
         </div>
 
         <!--CHAT-->
-        <div id="chatWrap"  class="col-md-9">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Chat</div>
+        <div id="chatWrap"  class="col-md-8">
+            <div class="well well-sm">
+                <legend class="the-legend">Chat</legend>
                 <div id="chat" class="panel-body">
                     <!--center><b>Bienvenido al chat<br/></b></center-->
                 </div>
