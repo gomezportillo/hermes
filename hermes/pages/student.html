@@ -1,15 +1,22 @@
+<!--DOCTYPE HTML-->
 <html>
 <head>
     <title>Hermes - Estudiante</title>
 
     <script src="https://code.jquery.com/jquery.js"></script>
     <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- BOOTSTRAP -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <!-- ARCHIVO NARROW-->
     <link href="http://fonts.googleapis.com/css?family=Tangerine" rel="stylesheet" type="text/css" />
+
+    <script src="http://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="http://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 
     <style>
     h1 {
@@ -31,7 +38,7 @@
         width: 100%;
         float:left;
         min-height:100px;
-        height: 90%;
+        height: 100%;
         overflow: auto;
     }
     .well {
@@ -63,7 +70,8 @@
                     <input id="nickname" class="form-control input-lg" type="text" placeholder="Escriba su nombre">
                     <span class="input-group-btn">
                         <button class="btn btn-lg btn-primary" type="submit" id="setNick">
-                            <span class="glyphicon glyphicon-check"></span> Acceder
+                            <span class="glyphicon glyphicon-check"></span>
+                            Acceder
                         </button>
                     </span>
                 </form>
@@ -116,7 +124,8 @@
                             <input id="message" class="form-control input-lg" type="text" placeholder="Escriba su pregunta">
                             <span class="input-group-btn">
                                 <button class="btn btn-lg btn-primary" type="submit">
-                                    <span class="glyphicon glyphicon-send"></span> Enviar pregunta
+                                    <span class="glyphicon glyphicon-send"></span>
+                                    Enviar pregunta
                                 </button>
                             </span>
                         </form>
