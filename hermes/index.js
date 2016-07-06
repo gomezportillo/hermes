@@ -31,6 +31,10 @@ io.sockets.on('connection', function(socket) {
         }
     });
 
+    socket.on('update video', function(data, callback) {
+        console.log("VIDEO UPDATED TO " + data + "\n");
+    });
+
     socket.on('disconnect', function(data) {
         if(!socket.nickname) return;
         delete nicknames[socket.nickname];

@@ -40,7 +40,7 @@
     }
 
     .well-custom {
-        height: 80%;
+        height: 75%;
     }
 
     </style>
@@ -57,7 +57,6 @@
         </div>
         <br/>
 
-        <!--USERS-->
         <div class="col-md-4">
             <div class="well well-sm">
                 <legend class="the-legend">Usuarios conectados</legend>
@@ -76,14 +75,46 @@
             </div>
         </div>
 
+        <!--URL ERROR-->
+        <div class="col-md-12">
+            <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="url-error" style="display:none;">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <button type="button" class="close" id="closeAlert">×</button>
+                Por favor inserte una URL.
+            </div>
+        </div>
+
+        <!--URL SUCCESS-->
+        <div class="col-md-12">
+            <div class="alert fade in alert-success alert-dismissable" data-dismiss="alert" id="url-success" style="display:none;">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <button type="button" class="close" id="closeAlert">×</button>
+                URL actualizada con éxito.
+            </div>
+        </div>
+
+        <!--UPDATE VIDEO URL-->
+        <div class="col-md-12">
+            <form id="update-video-form" class="input-group">
+                <input id="url-imput" class="form-control input-lg" type="text" placeholder="URL del vídeo de YouTube">
+                <span class="input-group-btn">
+                    <button class="btn btn-lg btn-primary" type="submit">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                        Cambiar vídeo
+                    </button>
+                </span>
+            </form>
+        </div>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
     jQuery(function($) {
         var socket = io.connect(),
-            $chat = $('#chat'),
-            $users = $('#users');
+        $chat = $('#chat'),
+        $users = $('#users'),
+        $updateVideo = $('#update-video-form'),
+        $newURL = $('#url-imput');
 
         socket.on('new message', function(data) {
             $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
@@ -95,6 +126,20 @@
                 users += username + '<br/>';
             }
             $users.html(users);
+        });
+
+        $updateVideo.submit(function(e) {
+            e.preventDefault();
+            //var newURL = document.getElementsByTagName("input")[0].value;
+            if ($newURL.val()) {
+                socket.emit('update video', $newURL.val());
+                $('#url-imput').val('');
+                $('#url-success').show();
+                $("#url-error").hide();
+            } else {
+                $('#url-success').hide();
+                $("#url-error").show();
+            }
         });
     });
 
