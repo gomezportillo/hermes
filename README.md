@@ -12,15 +12,19 @@ Si tiene algún problema con las dependecias socket.io o express, sitúese en el
 ```
 npm install
 ```  
-para descargarlas de nuevo, aunque inicialmente ya se encuentran descargadas en *node_modules/*
+para descargarlas de nuevo, aunque inicialmente ya se encuentran descargadas en el directorio *node_modules/*
 
 ## Ejecución
-En el mismo directorio raiz, ejecute
+Sitúese en el directorio raiz y ejecute
 ```
 node index.js
 ```
 
-##Uso
-Hermes permite desplegar un servidor en Node.js que ofrece dos interfaces para los dos roles posibles,
-* Los estudiantes accederán a través de URL/ y podrán ver los usuarios conectados y el vídeo del profesor mientras le escriben preguntas a través del chat.
-* El profesor, que accederá a través de URL/admin con una contraseña y podrá cambiar la URL del vídeo de YouTube que ven los estudiantes y ver el chat y los usuarios conectados, aunque no escribir en él.
+## Uso
+Hermes permite desplegar un servidor en Node.js que ofrece dos páginas web desarrolladas con [Bootstrap](http://getbootstrap.com/) para los dos roles posibles,
+* El profesor, que accederá a través de *URL/admin* con una contraseña almacenada en el servidor y podrá cambiar la URL del vídeo de YouTube que ven los estudiantes y ver el chat y los usuarios conectados, aunque no escribir en él.
+* Los estudiantes accederán a través de *URL/* y podrán ver los usuarios conectados y el vídeo del profesor mientras le escriben preguntas a través del chat.
+
+<p align="center">
+  <img src=https://github.com/gomezportillo/hermes/blob/master/images/student.png?raw=true" alt="Hermes"/>
+</p>
