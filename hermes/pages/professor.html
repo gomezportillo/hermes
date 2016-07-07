@@ -75,12 +75,21 @@
             </div>
         </div>
 
-        <!--URL ERROR-->
+        <!--URL BLANK-->
+        <div class="col-md-12">
+            <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="url-blank" style="display:none;">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <button type="button" class="close" id="closeAlert">×</button>
+                Por favor inserte una URL.
+            </div>
+        </div>
+
+        <!--URL BLANK-->
         <div class="col-md-12">
             <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="url-error" style="display:none;">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <button type="button" class="close" id="closeAlert">×</button>
-                Por favor inserte una URL.
+                La URL no es correcta. Por favor introduzca una URL correcta.
             </div>
         </div>
 
@@ -130,15 +139,24 @@
 
         $updateVideo.submit(function(e) {
             e.preventDefault();
-            //var newURL = document.getElementsByTagName("input")[0].value;
             if ($newURL.val()) {
-                socket.emit('update video', $newURL.val());
-                $('#url-imput').val('');
-                $('#url-success').show();
-                $("#url-error").hide();
+                socket.emit('update video', $newURL.val(), function(correct_url) {
+                    if (correct_url) {
+                        $('#url-imput').val('');
+                        $('#url-success').show();
+                        $("#url-error").hide();
+                        $("#url-blank").hide();
+                    } else {
+                        $("#url-error").show();
+                        $('#url-success').hide();
+                        $("#url-blank").hide();
+                    }
+                });
+
             } else {
+                $("#url-blank").show();
+                $("#url-error").hide();
                 $('#url-success').hide();
-                $("#url-error").show();
             }
         });
     });

@@ -2,14 +2,18 @@ var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require("socket.io").listen(server),
+    fs = require('fs'),
     nicknames = {};
+
 
 app.use(express.static(__dirname + '/images'));
 
 server.listen(8080);
+
 app.get('/', function(req, res) {
     res.sendfile('hermes/pages/student.html');
 });
+
 app.get('/admin', function(req, res) {
     res.sendfile('hermes/pages/professor.html');
 });
@@ -31,8 +35,14 @@ io.sockets.on('connection', function(socket) {
         }
     });
 
-    socket.on('update video', function(data, callback) {
-        console.log("VIDEO UPDATED TO " + data + "\n");
+    socket.on('update video', function(url, callback) {
+        url = splitURL(url);
+        if (typeof url != 'undefined') {
+            updateWebPage(url);
+            callback(true);
+        } else {
+            callback(false);
+        }
     });
 
     socket.on('disconnect', function(data) {
@@ -43,5 +53,22 @@ io.sockets.on('connection', function(socket) {
 
     function updateNickNames() {
         io.sockets.emit('usernames', nicknames);
+    }
+
+    function splitURL(url) {
+        return url.split("v=")[1]
+    }
+
+    function updateWebPage(newURL) {
+        fs.readFile('hermes/pages/student_template.html', 'utf-8', function(err, data){
+            if (err) throw err;
+
+            var new_file = data.replace('$VIDEO_URL', newURL);
+
+            fs.writeFile('hermes/pages/student.html', new_file, 'utf-8', function (err) {
+                if (err) throw err;
+                console.log('Updated URL ' + newURL);
+            });
+        });
     }
 });

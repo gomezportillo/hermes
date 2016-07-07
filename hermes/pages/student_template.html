@@ -98,7 +98,7 @@
             <!--VIDEO-->
             <div id="videoWrap" class="col-md-6">
                 <center>
-                    <iframe width="525"  height="300" src="$VIDEO_URL"/></iframe>
+                    <iframe width="525"  height="300" src="https://www.youtube.com/embed/$VIDEO_URL"/></iframe>
                 </center>
                 <br/><br/><br/><br/>
 
@@ -139,14 +139,14 @@
     <script>
     jQuery(function($) {
         var socket = io.connect(),
-        $messageForm = $('#send-message'),
-        $messageBox = $('#message'),
-        $chat = $('#chat'),
-        $nickForm = $('#setNick'),
-        $buttonSend = $('#send'),
-        $nickBox = $('#nickname'),
-        $users = $('#users'),
-        $closeAlert = $('#closeAlert');
+            $messageForm = $('#send-message'),
+            $messageBox = $('#message'),
+            $chat = $('#chat'),
+            $nickForm = $('#setNick'),
+            $buttonSend = $('#send'),
+            $nickBox = $('#nickname'),
+            $users = $('#users'),
+            $closeAlert = $('#closeAlert');
 
         $nickForm.click(function(e) {
             e.preventDefault();
