@@ -1,4 +1,3 @@
-<!--DOCTYPE HTML-->
 <html>
 <head>
     <title>Hermes - Estudiante</title>
@@ -49,7 +48,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="height: 70%;">
 
         <!--HEADER-->
         <div class="page-header">
@@ -61,8 +60,8 @@
         <br/>
 
         <!--LOG IN-->
-        <div>
-            <div id="some-space">
+        <div id="nickWrap">
+            <div>
                 <br/><br/><br/><br/><br/><br/>
             </div>
             <div>
@@ -75,6 +74,14 @@
                         </button>
                     </span>
                 </form>
+            </div>
+            <div>
+                <br/><br/><br/><br/><br/><br/>
+            </div>
+            <div>
+                <center>
+                    <p>Acceder como <a href="/admin">profesor</a>
+                </center>
             </div>
         </div>
 
@@ -93,12 +100,12 @@
         </div>
 
 
-        <div id="contentWrap" class="row" style="height: 70%;">
+        <div id="contentWrap" class="row">
 
-            <!--VIDEO-->
             <div id="videoWrap" class="col-md-6">
+                <!--VIDEO-->
                 <center>
-                    <iframe width="525"  height="300" src="https://www.youtube.com/embed/$VIDEO_URL"/></iframe>
+                    <iframe width="525"  height="300" src="http://youtube.com/embed/$VIDEO_URL"/></iframe>
                 </center>
                 <br/><br/><br/><br/>
 
@@ -132,9 +139,9 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
     jQuery(function($) {
@@ -157,7 +164,6 @@
                         $('#contentWrap').show();
                         $("#login-error").hide();
                         $("#user-void").hide();
-                        $("#some-space").hide();
                     } else {
                         $("#login-error").show();
                     }
