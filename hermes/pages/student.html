@@ -60,8 +60,8 @@
         <br/>
 
         <!--LOG IN-->
-        <div>
-            <div id="some-space">
+        <div id="nickWrap">
+            <div>
                 <br/><br/><br/><br/><br/><br/>
             </div>
             <div>
@@ -75,6 +75,10 @@
                     </span>
                 </form>
             </div>
+            <div>
+                <br/><br/><br/><br/><br/><br/>
+            </div>
+            
         </div>
 
         <!--LOG IN ERROR - USER EXISTS-->
@@ -131,9 +135,9 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
     jQuery(function($) {
@@ -156,7 +160,6 @@
                         $('#contentWrap').show();
                         $("#login-error").hide();
                         $("#user-void").hide();
-                        $("#some-space").hide();
                     } else {
                         $("#login-error").show();
                     }

@@ -35,6 +35,15 @@ io.sockets.on('connection', function(socket) {
         }
     });
 
+    socket.on('log in', function(password, callback) {
+        console.log("Intentando acceder con la contraseña" + password);
+        if (password == 'cted') {
+            callback(true);
+        } else {
+            callback(false);
+        }
+    });
+
     socket.on('update video', function(url, callback) {
         url = splitURL(url);
         if (typeof url != 'undefined') {

@@ -51,14 +51,35 @@
         <!--HEADER-->
         <div class="page-header">
             <h1>
-                <a href="/"><img src="/hermes-logo.png" width="45px" height="45px"/></a>
+                <a href="/admin"><img src="/hermes-logo.png" width="45px" height="45px"/></a>
                 Hermes <small>es un proyecto del <a href="http://blog.uclm.es/cted" target="_blank">C:TED</a></small>
             </h1>
         </div>
         <br/>
 
-        <div id="contentWrap" class="row">
+        <div id="login-form">
+            <div>
+                <br/><br/><br/><br/><br/><br/>
+            </div>
+            <form class="input-group" style="width:600px;text-align:center;margin:0 auto;">
+                <input id="password" class="form-control input-lg" type="text" placeholder="Escriba su contraseña">
+                <span class="input-group-btn">
+                    <button class="btn btn-lg btn-primary" type="submit" id="sendPwd">
+                        <span class="glyphicon glyphicon-check"></span>
+                        Acceder como profesor
+                    </button>
+                </span>
+            </form>
 
+            <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="password_error" style="display:none;">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <button type="button" class="close" id="closeAlert">×</button>
+                La contraseña no es correcta.
+            </div>
+        </div>
+
+
+        <div id="contentWrap" class="row">
 
             <div class="col-md-4">
                 <div class="well well-sm">
@@ -125,6 +146,8 @@
         var $users = $('#users');
         var $updateVideo = $('#update-video-form');
         var $newURL = $('#url-imput');
+        var $login = $('#login-form');
+        var $password = $('#password');
 
         socket.on('new message', function(data) {
             $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
@@ -136,6 +159,23 @@
                 users += username + '<br/>';
             }
             $users.html(users);
+        });
+
+        $login.submit(function(e) {
+            e.preventDefault();
+            if($password.val()) {
+                socket.emit('log in', $password.val(), function(correct) {
+                    $password.val('');
+                    if (correct) {
+                        $login.hide();
+                        $('#contentWrap').show()
+                    } else {
+                        $('#password_error').show();
+                    }
+                });
+            } else {
+                $('#password_error').show();
+            }
         });
 
         $updateVideo.submit(function(e) {
