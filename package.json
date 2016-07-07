@@ -1,7 +1,7 @@
 {
   "name": "Hermes",
-  "version": "0.1.0",
-  "description": "Embedded real-time chat and YouTube player",
+  "version": "0.4.20160707",
+  "description": "Real-time chat and YouTube player for streaming classes",
   "main": "index.js",
   "repository": "blog.uclm.es/cted",
   "author": "C:TED <cted@uclm.es>",
