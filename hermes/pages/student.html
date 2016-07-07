@@ -137,15 +137,15 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
     jQuery(function($) {
-        var socket = io.connect(),
-        $messageForm = $('#send-message'),
-        $messageBox = $('#message'),
-        $chat = $('#chat'),
-        $nickForm = $('#setNick'),
-        $buttonSend = $('#send'),
-        $nickBox = $('#nickname'),
-        $users = $('#users'),
-        $closeAlert = $('#closeAlert');
+        var socket = io.connect();
+        var $messageForm = $('#send-message');
+        var $messageBox = $('#message');
+        var $chat = $('#chat');
+        var $nickForm = $('#setNick');
+        var $buttonSend = $('#send');
+        var $nickBox = $('#nickname');
+        var $users = $('#users');
+        var $closeAlert = $('#closeAlert');
 
         $nickForm.click(function(e) {
             e.preventDefault();

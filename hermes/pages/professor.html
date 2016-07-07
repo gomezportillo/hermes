@@ -57,73 +57,74 @@
         </div>
         <br/>
 
-        <div class="col-md-4">
-            <div class="well well-sm">
-                <legend class="the-legend">Usuarios conectados</legend>
-                <div id="users" class="panel-body">
+        <div id="contentWrap" class="row">
+
+
+            <div class="col-md-4">
+                <div class="well well-sm">
+                    <legend class="the-legend">Usuarios conectados</legend>
+                    <div id="users" class="panel-body">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!--CHAT-->
-        <div id="chatWrap"  class="col-md-8">
-            <div class="well well-sm well-custom">
-                <legend class="the-legend">Chat</legend>
-                <div id="chat" class="panel-body">
-                    <!--center><b>Bienvenido al chat<br/></b></center-->
+            <!--CHAT-->
+            <div id="chatWrap"  class="col-md-8">
+                <div class="well well-sm well-custom">
+                    <legend class="the-legend">Chat</legend>
+                    <div id="chat" class="panel-body">
+                        <!--center><b>Bienvenido al chat<br/></b></center-->
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!--URL BLANK-->
-        <div class="col-md-12">
-            <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="url-blank" style="display:none;">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <button type="button" class="close" id="closeAlert">×</button>
-                Por favor inserte una URL.
+            <!--ERROR ANNOUNCEMENTS-->
+            <div class="col-md-12">
+
+                <!--URL BLANK-->
+                <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="url-blank" style="display:none;">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <button type="button" class="close" id="closeAlert">×</button>
+                    Por favor inserte una URL.
+                </div>
+
+
+                <!--URL BLANK-->
+                <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="url-error" style="display:none;">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <button type="button" class="close" id="closeAlert">×</button>
+                    La URL no es correcta. Por favor introduzca una URL correcta.
+                </div>
+
+                <!--URL SUCCESS-->
+                <div class="alert fade in alert-success alert-dismissable" data-dismiss="alert" id="url-success" style="display:none;">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <button type="button" class="close" id="closeAlert">×</button>
+                    URL actualizada con éxito.
+                </div>
+
+                <!--UPDATE VIDEO FORM-->
+                <form id="update-video-form" class="input-group">
+                    <input id="url-imput" class="form-control input-lg" type="text" placeholder="URL del vídeo de YouTube">
+                    <span class="input-group-btn">
+                        <button class="btn btn-lg btn-primary" type="submit">
+                            <span class="glyphicon glyphicon-floppy-disk"></span>
+                            Cambiar vídeo
+                        </button>
+                    </span>
+                </form>
             </div>
-        </div>
-
-        <!--URL BLANK-->
-        <div class="col-md-12">
-            <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="url-error" style="display:none;">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <button type="button" class="close" id="closeAlert">×</button>
-                La URL no es correcta. Por favor introduzca una URL correcta.
-            </div>
-        </div>
-
-        <!--URL SUCCESS-->
-        <div class="col-md-12">
-            <div class="alert fade in alert-success alert-dismissable" data-dismiss="alert" id="url-success" style="display:none;">
-                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                <button type="button" class="close" id="closeAlert">×</button>
-                URL actualizada con éxito.
-            </div>
-        </div>
-
-        <!--UPDATE VIDEO URL-->
-        <div class="col-md-12">
-            <form id="update-video-form" class="input-group">
-                <input id="url-imput" class="form-control input-lg" type="text" placeholder="URL del vídeo de YouTube">
-                <span class="input-group-btn">
-                    <button class="btn btn-lg btn-primary" type="submit">
-                        <span class="glyphicon glyphicon-floppy-disk"></span>
-                        Cambiar vídeo
-                    </button>
-                </span>
-            </form>
-        </div>
+        </dvi>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
     jQuery(function($) {
-        var socket = io.connect(),
-        $chat = $('#chat'),
-        $users = $('#users'),
-        $updateVideo = $('#update-video-form'),
-        $newURL = $('#url-imput');
+        var socket = io.connect();
+        var $chat = $('#chat');
+        var $users = $('#users');
+        var $updateVideo = $('#update-video-form');
+        var $newURL = $('#url-imput');
 
         socket.on('new message', function(data) {
             $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");

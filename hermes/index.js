@@ -1,9 +1,9 @@
-var express = require('express'),
-    app = express(),
-    server = require('http').createServer(app),
-    io = require("socket.io").listen(server),
-    fs = require('fs'),
-    nicknames = {};
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require("socket.io").listen(server);
+var fs = require('fs');
+var nicknames = {};
 
 
 app.use(express.static(__dirname + '/images'));
