@@ -24,13 +24,13 @@ io.sockets.on('connection', function(socket) {
         io.sockets.emit('new message', {msg: data, nick: socket.nickname});
     });
 
-    socket.on('new user', function(data, callback) {
-        if (data in nicknames) {
+    socket.on('new user', function(user, password, callback) {
+        if (user in nicknames) {
             callback(false);
         } else {
             callback(true);
-            socket.nickname = data;
-            nicknames[socket.nickname] = 1;
+            socket.nickname = user;
+            nicknames[socket.nickname] = true;
             updateNickNames();
         }
     });

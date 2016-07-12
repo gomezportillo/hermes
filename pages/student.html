@@ -69,7 +69,7 @@
         <!--LOG IN-->
         <div id="nickWrap">
             <div>
-                <br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/>
             </div>
             <div>
                 <form id="nickWrap" class="input-group" style="width:600px;text-align:center;margin:0 auto;">
@@ -79,7 +79,7 @@
                     <label for="password" class="my-label">Contraseña</label>
                     <input type="password" class="form-control input-lg" name="" id="password" placeholder="Escriba su contraseña">
                     <br/><br/><br/>
-                    <button class="btn btn-lg btn-primary btn-block" type="Submit" name="Submit" value="Login" id="setNick">
+                    <button class="btn btn-lg btn-primary btn-block" id="setNick">
                         <span class="glyphicon glyphicon-check"></span>
                         Acceder
                     </button>
@@ -156,7 +156,7 @@
             </div>
         </div>
     </div>
-    
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
     jQuery(function($) {
@@ -167,13 +167,15 @@
         var $nickForm = $('#setNick');
         var $buttonSend = $('#send');
         var $nickBox = $('#nickname');
+        var $passBox = $('#password');
         var $users = $('#users');
         var $closeAlert = $('#closeAlert');
 
         $nickForm.click(function(e) {
             e.preventDefault();
-            if($nickBox.val()) {
-                socket.emit('new user', $nickBox.val(), function(nick_available) {
+            console.log($nickBox.val() +" "+ $passBox.val());
+            if($nickBox.val() && $passBox.val()) {
+                socket.emit('new user', $nickBox.val(), $passBox.val(), function(nick_available) {
                     if(nick_available) {
                         $('#nickWrap').hide();
                         $('#contentWrap').show();
