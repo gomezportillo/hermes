@@ -40,8 +40,15 @@
         height: 100%;
         overflow: auto;
     }
+    .my-label{
+        float: left;
+    }
     .well {
         background: rgb(250, 250, 250);
+        border-radius: 5px;
+    }
+    .well-custom {
+        height: 60%;
     }
     </style>
 
@@ -62,86 +69,94 @@
         <!--LOG IN-->
         <div id="nickWrap">
             <div>
-                <br/><br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/>
             </div>
             <div>
                 <form id="nickWrap" class="input-group" style="width:600px;text-align:center;margin:0 auto;">
-                    <input id="nickname" class="form-control input-lg" type="text" placeholder="Escriba su nombre">
-                    <span class="input-group-btn">
-                        <button class="btn btn-lg btn-primary" type="submit" id="setNick">
-                            <span class="glyphicon glyphicon-check"></span>
-                            Acceder
-                        </button>
-                    </span>
+                    <label for="first_name" class="my-label">Nombre</label>
+                    <input type="text" class="form-control input-lg" name="" id="nickname" placeholder="Escriba su nombre">
+                    <br/><br/>
+                    <label for="password" class="my-label">Contraseña</label>
+                    <input type="password" class="form-control input-lg" name="" id="password" placeholder="Escriba su contraseña">
+                    <br/><br/><br/>
+                    <button class="btn btn-lg btn-primary btn-block" type="Submit" name="Submit" value="Login" id="setNick">
+                        <span class="glyphicon glyphicon-check"></span>
+                        Acceder
+                    </button>
+
                 </form>
             </div>
             <div>
-                <br/><br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/><br/><br/><br/>
             </div>
             <div>
                 <center>
                     <p>Acceder como <a href="/admin">profesor</a>
-                </center>
-            </div>
-        </div>
-
-        <!--LOG IN ERROR - USER EXISTS-->
-        <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="login-error" style="display:none;">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <button type="button" class="close" id="closeAlert">×</button>
-            Ya hay un usuario con este nombre. Por favor elija otro.
-        </div>
-
-        <!--LOG IN ERROR - BLANK NAME-->
-        <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="user-void" style="display:none;">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <button type="button" class="close" id="closeAlert">×</button>
-            Por favor escriba su nombre.
-        </div>
-
-
-        <div id="contentWrap" class="row">
-
-            <div id="videoWrap" class="col-md-6">
-                <!--VIDEO-->
-                <center>
-                    <iframe width="525"  height="300" src="http://youtube.com/embed/3E9tN3vnyf4"/></iframe>
-                </center>
-                <br/><br/><br/><br/>
-
-                <!--USERS-->
-                <div class="col-md-12">
-                    <div class="well well-sm">
-                        <legend class="the-legend">Usuarios conectados</legend>
-                        <div id="users" class="panel-body">
-                        </div>
-                    </div>
+                    </center>
                 </div>
             </div>
 
-            <!--CHAT-->
-            <div id="chatWrap"  class="col-md-6">
-                <div class="well well-sm">
-                    <legend class="the-legend">Chat</legend>
-                    <div id="chat" class="panel-body">
-                        <!--center><b>Bienvenido al chat<br/></b></center-->
+            <!--LOG IN ERROR - USER EXISTS-->
+            <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="login-error" style="display:none;">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <button type="button" class="close" id="closeAlert">×</button>
+                Usuario o contraseña incorrecta. Por favor inténtelo de nuevo.
+            </div>
+
+            <!--LOG IN ERROR - BLANK NAME-->
+            <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="user-void" style="display:none;">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <button type="button" class="close" id="closeAlert">×</button>
+                Por favor escriba su nombre y contraseña.
+            </div>
+
+
+            <div id="contentWrap">
+
+                <div id="videoWrap" class="row">
+                    <!--VIDEO-->
+                    <center>
+                        <iframe width="700" height="400" src="http://youtube.com/embed/-W143cZTCgQ"/></iframe>
+                    </center>
+                    <br/><br/>
+
+                </div>
+
+                <!--CHAT FORM-->
+                <div id="chatWrap" class="row">
+
+                    <!--USERS-->
+                    <div class="col-md-3">
+                        <div class="well well-sm">
+                            <legend class="the-legend">Usuarios conectados</legend>
+                            <div id="users" class="panel-body">
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <form id="send-message" class="input-group">
-                            <input id="message" class="form-control input-lg" type="text" placeholder="Escriba su pregunta">
-                            <span class="input-group-btn">
-                                <button class="btn btn-lg btn-primary" type="submit">
-                                    <span class="glyphicon glyphicon-send"></span>
-                                    Enviar pregunta
-                                </button>
-                            </span>
-                        </form>
+
+                    <!--CHAT-->
+                    <div class="col-md-9">
+                        <div class="well well-sm well-custom">
+                            <legend class="the-legend">Chat</legend>
+                            <div id="chat" class="panel-body">
+                                <!--center><b>Bienvenido al chat<br/></b></center-->
+                            </div>
+                            <form id="send-message" class="input-group">
+                                <input id="message" class="form-control input-lg" type="text" placeholder="Escriba su pregunta">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-lg btn-primary" type="submit">
+                                        <span class="glyphicon glyphicon-send"></span>
+                                        Enviar
+                                    </button>
+                                </span>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    
     <script src="/socket.io/socket.io.js"></script>
     <script>
     jQuery(function($) {
