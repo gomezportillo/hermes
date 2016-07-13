@@ -164,7 +164,7 @@
         $login.submit(function(e) {
             e.preventDefault();
             if($password.val()) {
-                socket.emit('log in', $password.val(), function(correct) {
+                socket.emit('log professor', $password.val(), function(correct) {
                     $password.val('');
                     if (correct) {
                         $login.hide();
