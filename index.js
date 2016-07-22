@@ -30,13 +30,11 @@ io.sockets.on('connection', function(socket) {
             callback(false);
         } else {
             read_registered_users();
-            console.log(user);
-            console.log(password);
             if (user in registered_users && registered_users[user] == password) { //si nombre y contraseña coinciden
                 callback(true);
                 socket.nickname = user;
                 connected_users[socket.nickname] = 'connected';
-                update_users();
+                io.sockets.emit('user connected', connected_users);
             } else {
                 callback(false);
             }
@@ -46,6 +44,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('log professor', function(password, callback) {
         console.log("Profesor intentando acceder con la contraseña " + password);
         if (password == 'cted') {
+            socket.nickname = '¬HERMES:profesor'
             callback(true);
         } else {
             callback(false);
@@ -65,12 +64,8 @@ io.sockets.on('connection', function(socket) {
     socket.on('disconnect', function(data) {
         if(!socket.nickname) return;
         delete connected_users[socket.nickname];
-        update_users();
+        io.sockets.emit('user connected', connected_users);
     });
-
-    function update_users() {
-        io.sockets.emit('usernames', connected_users);
-    }
 
     function splitURL(url) {
         return url.split("v=")[1]

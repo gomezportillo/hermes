@@ -120,7 +120,7 @@
             <div id="videoWrap" class="row">
                 <!--VIDEO-->
                 <center>
-                    <iframe width="700" height="400" src="http://youtube.com/embed/-W143cZTCgQ"/></iframe>
+                    <iframe width="700" height="400" src="http://youtube.com/embed/-W143cZTCgQ" allowfullscreen/></iframe>
                 </center>
                 <br/><br/>
 
@@ -177,7 +177,6 @@ jQuery(function($) {
 
     $nickForm.click(function(e) {
         e.preventDefault();
-        console.log($nickBox.val() +" "+ $passBox.val());
         if($nickBox.val() && $passBox.val()) {
             socket.emit('new user', $nickBox.val(), $passBox.val(), function(nick_available) {
                 if(nick_available) {
@@ -206,10 +205,14 @@ jQuery(function($) {
     });
 
     socket.on('new message', function(data) {
-        $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
+        if (data.nick == '¬HERMES:profesor') {
+            $chat.append("<b><font color=#428BCA>PROFESOR: </font></b>" + data.msg + "<br/>");
+        } else {
+            $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
+        }
     });
 
-    socket.on('usernames', function(all_users) {
+    socket.on('user connected', function(all_users) {
         var users = '';
         for (var name in all_users) {
             users += name + '<br/>';

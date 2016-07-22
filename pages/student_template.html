@@ -24,7 +24,7 @@
     body {
         font-family: 'Archivo Narrow' !important;
         font-size: 18px;
-        background-color:FCFFFF;">
+        background-color:FFFFFF;">
     }
     #contentWrap{
         display: none;
@@ -40,21 +40,15 @@
         height: 100%;
         overflow: auto;
     }
+    .my-label{
+        float: left;
+    }
     .well {
         background: rgb(250, 250, 250);
         border-radius: 5px;
     }
-    .login-form {
-        max-width: 650px;
-        margin: 0 auto;
-        background-color: #EEEEEE;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        padding-left: 20px;
-        padding-right: 20px;
-        border-radius: 15px;
-        border-width: 5px;
-        box-shadow:0 1px 0 #cfcfcf;
+    .well-custom {
+        height: 60%;
     }
     </style>
 
@@ -73,146 +67,161 @@
         <br/>
 
         <!--LOG IN-->
-        <div id="nickWrap">  <!--class="login-form"-->
+        <div id="nickWrap">
             <div>
-                <br/><br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/>
             </div>
             <div>
                 <form id="nickWrap" class="input-group" style="width:600px;text-align:center;margin:0 auto;">
-                    <input id="nickname" class="form-control input-lg" type="text" placeholder="Escriba su nombre">
-                    <span class="input-group-btn">
-                        <button class="btn btn-lg btn-primary" type="submit" id="setNick">
-                            <span class="glyphicon glyphicon-check"></span>
-                            Acceder
-                        </button>
-                    </span>
+                    <label for="first_name" class="my-label">Nombre</label>
+                    <input type="text" class="form-control input-lg" name="" id="nickname" placeholder="Escriba su nombre">
+                    <br/><br/>
+                    <label for="password" class="my-label">Contraseña</label>
+                    <input type="password" class="form-control input-lg" name="" id="password" placeholder="Escriba su contraseña">
+                    <br/><br/><br/>
+                    <button class="btn btn-lg btn-primary btn-block" id="setNick">
+                        <span class="glyphicon glyphicon-check"></span>
+                        Acceder
+                    </button>
+
                 </form>
             </div>
             <div>
-                <br/><br/><br/><br/><br/><br/>
-            </div>
-            <div>
+                <br/><br/><br/><br/><br/><br/><br/>
                 <center>
                     <p>Acceder como <a href="/admin">profesor</a>
                     </center>
                 </div>
+
+                <div>
+
+                    <div class="col-md-2">
+                    </div>
+                    <!--LOG IN ERROR - USER EXISTS-->
+                    <div class="alert fade in alert-danger alert-dismissable col-md-8" data-dismiss="alert" id="login-error" style="display:none;">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <button type="button" class="close" id="closeAlert">×</button>
+                        Usuario o contraseña incorrecta. Por favor inténtelo de nuevo.
+                    </div>
+
+                    <!--LOG IN ERROR - BLANK NAME-->
+                    <div class="alert fade in alert-danger alert-dismissable col-md-8" data-dismiss="alert" id="user-void" style="display:none;">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <button type="button" class="close" id="closeAlert">×</button>
+                        Por favor escriba su nombre y contraseña.
+                    </div>
+                </dvi>
+
+            </div>
+        </div>
+
+        <div id="contentWrap">
+
+            <div id="videoWrap" class="row">
+                <!--VIDEO-->
+                <center>
+                    <iframe width="700" height="400" src="http://youtube.com/embed/$VIDEO_URL"/></iframe>
+                </center>
+                <br/><br/>
+
             </div>
 
-            <!--LOG IN ERROR - USER EXISTS-->
-            <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="login-error" style="display:none;">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <button type="button" class="close" id="closeAlert">×</button>
-                Ya hay un usuario con este nombre. Por favor elija otro.
-            </div>
+            <!--CHAT FORM-->
+            <div id="chatWrap" class="row">
 
-            <!--LOG IN ERROR - BLANK NAME-->
-            <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="user-void" style="display:none;">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <button type="button" class="close" id="closeAlert">×</button>
-                Por favor escriba su nombre.
-            </div>
-
-
-            <div id="contentWrap">
-
-                <div id="videoWrap" class="row">
-                    <!--VIDEO-->
-                    <center>
-                        <iframe width="525"  height="300" src="http://youtube.com/embed/$VIDEO_URL"/></iframe>
-                    </center>
-                    <br/><br/><br/><br/>
-
+                <!--USERS-->
+                <div class="col-md-3">
+                    <div class="well well-sm">
+                        <legend class="the-legend">Usuarios conectados</legend>
+                        <div id="users" class="panel-body">
+                        </div>
+                    </div>
                 </div>
 
                 <!--CHAT-->
-                <div id="chatWrap">
-
-                    <!--USERS-->
-                    <div class="col-md-4">
-                        <div class="well well-sm">
-                            <legend class="the-legend">Usuarios conectados</legend>
-                            <div id="users" class="panel-body">
-                            </div>
+                <div class="col-md-9">
+                    <div class="well well-sm well-custom">
+                        <legend class="the-legend">Chat</legend>
+                        <div id="chat" class="panel-body">
+                            <!--center><b>Bienvenido al chat<br/></b></center-->
                         </div>
-                    </div>
-
-                    <div class="col-md-8">
-                        <div class="well well-sm">
-                            <legend class="the-legend">Chat</legend>
-                            <div id="chat" class="panel-body">
-                                <!--center><b>Bienvenido al chat<br/></b></center-->
-                            </div>
-                            <div>
-                                <form id="send-message" class="input-group">
-                                    <input id="message" class="form-control input-lg" type="text" placeholder="Escriba su pregunta">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-lg btn-primary" type="submit">
-                                            <span class="glyphicon glyphicon-send"></span>
-                                            Enviar
-                                        </button>
-                                    </span>
-                                </form>
-                            </div>
-                        </div>
+                        <form id="send-message" class="input-group">
+                            <input id="message" class="form-control input-lg" type="text" placeholder="Escriba su pregunta">
+                            <span class="input-group-btn">
+                                <button class="btn btn-lg btn-primary" type="submit">
+                                    <span class="glyphicon glyphicon-send"></span>
+                                    Enviar
+                                </button>
+                            </span>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-    jQuery(function($) {
-        var socket = io.connect();
-        var $messageForm = $('#send-message');
-        var $messageBox = $('#message');
-        var $chat = $('#chat');
-        var $nickForm = $('#setNick');
-        var $buttonSend = $('#send');
-        var $nickBox = $('#nickname');
-        var $users = $('#users');
-        var $closeAlert = $('#closeAlert');
+<script src="/socket.io/socket.io.js"></script>
+<script>
+jQuery(function($) {
+    var socket = io.connect();
+    var $messageForm = $('#send-message');
+    var $messageBox = $('#message');
+    var $chat = $('#chat');
+    var $nickForm = $('#setNick');
+    var $buttonSend = $('#send');
+    var $nickBox = $('#nickname');
+    var $passBox = $('#password');
+    var $users = $('#users');
+    var $closeAlert = $('#closeAlert');
 
-        $nickForm.click(function(e) {
-            e.preventDefault();
-            if($nickBox.val()) {
-                socket.emit('new user', $nickBox.val(), function(nick_available) {
-                    if(nick_available) {
-                        $('#nickWrap').hide();
-                        $('#contentWrap').show();
-                        $("#login-error").hide();
-                        $("#user-void").hide();
-                    } else {
-                        $("#login-error").show();
-                    }
-                });
-            } else {
-                $("#user-void").show();
-            }
-            $nickBox.val('');
-        });
-
-        $messageForm.submit(function(e) {
-            e.preventDefault();
-            if($messageBox.val()!='') {
-                socket.emit('send message', $messageBox.val());
-            }
-            $messageBox.val('');
-        });
-
-        socket.on('new message', function(data) {
-            $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
-        });
-
-        socket.on('usernames', function(all_users) {
-            var users = '';
-            for (var name in all_users) {
-                users += name + '<br/>';
-            }
-            $users.html(users);
-        });
-
+    $nickForm.click(function(e) {
+        e.preventDefault();
+        console.log($nickBox.val() +" "+ $passBox.val());
+        if($nickBox.val() && $passBox.val()) {
+            socket.emit('new user', $nickBox.val(), $passBox.val(), function(nick_available) {
+                if(nick_available) {
+                    $('#nickWrap').hide();
+                    $('#contentWrap').show();
+                    $("#login-error").hide();
+                    $("#user-void").hide();
+                } else {
+                    $("#login-error").show();
+                    $("#user-void").hide();
+                }
+            });
+        } else {
+            $("#user-void").show();
+            $("#login-error").hide();
+        }
+        $nickBox.val('');
     });
-    </script>
+
+    $messageForm.submit(function(e) {
+        e.preventDefault();
+        if($messageBox.val()!='') {
+            socket.emit('send message', $messageBox.val());
+        }
+        $messageBox.val('');
+    });
+
+    socket.on('new message', function(data) {
+        if (data.nick == '¬HERMES:profesor') {
+            $chat.append("<b><font color=#428BCA>PROFESOR: </font></b>" + data.msg + "<br/>");
+        } else {
+            $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
+        }
+    });
+
+    socket.on('user connected', function(all_users) {
+        var users = '';
+        for (var name in all_users) {
+            users += name + '<br/>';
+        }
+        $users.html(users);
+    });
+
+});
+</script>
 </body>
 </html>

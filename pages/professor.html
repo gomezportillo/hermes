@@ -96,11 +96,31 @@
                     <div id="chat" class="panel-body">
                         <!--center><b>Bienvenido al chat<br/></b></center-->
                     </div>
+                    <form id="send-message" class="input-group">
+                        <input id="message" class="form-control input-lg" type="text" placeholder="Escriba su mensaje">
+                        <span class="input-group-btn">
+                            <button class="btn btn-lg btn-primary" type="submit">
+                                <span class="glyphicon glyphicon-send"></span>
+                                Enviar
+                            </button>
+                        </span>
+                    </form>
                 </div>
             </div>
 
             <!--ERROR ANNOUNCEMENTS-->
             <div class="col-md-12">
+
+                <!--UPDATE VIDEO FORM-->
+                <form id="update-video-form" class="input-group">
+                    <input id="url-imput" class="form-control input-lg" type="text" placeholder="URL del vídeo de YouTube">
+                    <span class="input-group-btn">
+                        <button class="btn btn-lg btn-primary" type="submit">
+                            <span class="glyphicon glyphicon-floppy-disk"></span>
+                            Cambiar vídeo
+                        </button>
+                    </span>
+                </form>
 
                 <!--URL BLANK-->
                 <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="url-blank" style="display:none;">
@@ -108,7 +128,6 @@
                     <button type="button" class="close" id="closeAlert">×</button>
                     Por favor inserte una URL.
                 </div>
-
 
                 <!--URL BLANK-->
                 <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="url-error" style="display:none;">
@@ -123,17 +142,6 @@
                     <button type="button" class="close" id="closeAlert">×</button>
                     URL actualizada con éxito.
                 </div>
-
-                <!--UPDATE VIDEO FORM-->
-                <form id="update-video-form" class="input-group">
-                    <input id="url-imput" class="form-control input-lg" type="text" placeholder="URL del vídeo de YouTube">
-                    <span class="input-group-btn">
-                        <button class="btn btn-lg btn-primary" type="submit">
-                            <span class="glyphicon glyphicon-floppy-disk"></span>
-                            Cambiar vídeo
-                        </button>
-                    </span>
-                </form>
             </div>
         </dvi>
     </div>
@@ -148,12 +156,19 @@
         var $newURL = $('#url-imput');
         var $login = $('#login-form');
         var $password = $('#password');
+        var $messageForm = $('#send-message');
+        var $messageBox = $('#message');
+
 
         socket.on('new message', function(data) {
-            $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
+            if (data.nick == '¬HERMES:profesor') {
+                $chat.append("<b><font color=#428BCA>PROFESOR: </font></b>" + data.msg + "<br/>");
+            } else {
+                $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
+            }
         });
 
-        socket.on('usernames', function(data) {
+        socket.on('user connected', function(data) {
             var users = '';
             for (var username in data) {
                 users += username + '<br/>';
@@ -188,17 +203,25 @@
                         $("#url-error").hide();
                         $("#url-blank").hide();
                     } else {
-                        $("#url-error").show();
                         $('#url-success').hide();
+                        $("#url-error").show();
                         $("#url-blank").hide();
                     }
                 });
 
             } else {
-                $("#url-blank").show();
-                $("#url-error").hide();
                 $('#url-success').hide();
+                $("#url-error").hide();
+                $("#url-blank").show();
             }
+        });
+
+        $messageForm.submit(function(e) {
+            e.preventDefault();
+            if($messageBox.val()!='') {
+                socket.emit('send message', $messageBox.val());
+            }
+            $messageBox.val('');
         });
     });
 
