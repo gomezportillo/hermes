@@ -6,7 +6,7 @@ var fs = require('fs');
 var connected_users = {};
 var registered_users = {};
 var professor_nickname = '¬HERMES:professor'
-
+var youtube_video = "https://youtube.com/embed/FBBn72oY8nc";
 
 app.use(express.static(__dirname + '/images'));
 
@@ -35,7 +35,7 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('new user', function(user, password, callback) {
-        if (connected_users[user] = true) { //si el estudiante ya está conectado
+        if (connected_users[user] == true) { //si el estudiante ya está conectado
             callback(false);
         } else {
             load_csv_users_file();
@@ -44,6 +44,7 @@ io.sockets.on('connection', function(socket) {
                 connected_users[socket.nickname] = true;
                 announce_users();
                 callback(true);
+                socket.emit('update url', youtube_video);
             } else {
                 callback(false);
             }
@@ -61,43 +62,34 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('update video', function(url, callback) {
-        var correct = '';
-        try {
-            correct = updateWebPage(url);
-        } catch (ex) {
-            console.log("Error actualizando la URL en las página del alumno.");
-            correct = false;
+
+        var url_base = "https://youtube.com/embed/";
+        var url_id = get_video_id(url);
+
+        if (typeof url_id == 'undefined') {
+            callback(false);
+        } else {
+
+            youtube_video = url_base + url_id;
+
+            io.sockets.clients().forEach(function (socket) {
+                if (connected_users[socket.nickname] == true) { //si el usuario que recibe está conectado
+                    socket.emit('update url', youtube_video);
+                }
+            });
+            callback(true);
         }
-        callback(correct);
     });
+
+    function get_video_id(url) {
+        return url.split("v=")[1].split("&")[0]
+    }
 
     socket.on('disconnect', function(data) {
         if(!socket.nickname) return;
         delete connected_users[socket.nickname];
-        callback(true);
         announce_users();
     });
-
-    function updateWebPage(newURL) {
-        newURL = splitURL(newURL);
-        if (typeof url != 'undefined') {
-
-            fs.readFile('pages/student_template.html', 'utf-8', function(err, data){
-                if (err) throw err;
-
-                var new_file = data.replace('$VIDEO_URL', newURL);
-
-                fs.writeFile('pages/student.html', new_file, 'utf-8', function (err) {
-                    if (err) throw err;
-
-                    console.log('Updated URL ' + newURL);
-                    return true;
-                });
-            });
-        } else {
-            return false;
-        }
-    }
 
     function announce_users(){
         io.sockets.clients().forEach(function (socket) {
@@ -121,10 +113,6 @@ io.sockets.on('connection', function(socket) {
         });
     }
 
-    function splitURL(url) {
-        return url.split("v=")[1]
-    }
-    
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }

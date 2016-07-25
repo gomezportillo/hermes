@@ -120,7 +120,7 @@
             <div id="videoWrap" class="row">
                 <!--VIDEO-->
                 <center>
-                    <iframe width="700" height="400" src="https://youtube.com/embed/-W143cZTCgQ" allowfullscreen/></iframe>
+                    <iframe id="youtube-video" width="700" height="400" allowfullscreen/></iframe>
                 </center>
                 <br/><br/>
 
@@ -163,6 +163,7 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
+
 jQuery(function($) {
     var socket = io.connect();
     var $messageForm = $('#send-message');
@@ -218,6 +219,10 @@ jQuery(function($) {
             users += name + '<br/>';
         }
         $users.html(users);
+    });
+
+    socket.on('update url', function(url) {
+        document.getElementById("youtube-video").setAttribute("src", url);
     });
 
 });
