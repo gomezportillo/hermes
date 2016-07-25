@@ -62,22 +62,23 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('update video', function(url, callback) {
+        if (socket.nickname == professor_nickname) {
+            var url_base = "https://youtube.com/embed/";
+            var url_id = get_video_id(url);
 
-        var url_base = "https://youtube.com/embed/";
-        var url_id = get_video_id(url);
+            if (typeof url_id == 'undefined' || url_id == '' || url_id.length != 11) {
+                callback(false);
+            } else {
 
-        if (typeof url_id == 'undefined') {
-            callback(false);
-        } else {
+                youtube_video = url_base + url_id;
 
-            youtube_video = url_base + url_id;
-
-            io.sockets.clients().forEach(function (socket) {
-                if (connected_users[socket.nickname] == true) { //si el usuario que recibe está conectado
-                    socket.emit('update url', youtube_video);
-                }
-            });
-            callback(true);
+                io.sockets.clients().forEach(function (socket) {
+                    if (connected_users[socket.nickname] == true) { //si el usuario que recibe está conectado
+                        socket.emit('update url', youtube_video);
+                    }
+                });
+                callback(true);
+            }
         }
     });
 
@@ -111,7 +112,13 @@ io.sockets.on('connection', function(socket) {
     }
 
     function get_video_id(url) {
-        return url.split("v=")[1].split("&")[0]
+        var url_id = '';
+        try {
+            url_id = url.split("v=")[1].split("&")[0];
+        } catch (ex) {
+            return;
+        }
+        return url_id;
     }
 
     function capitalizeFirstLetter(string) {
