@@ -81,14 +81,11 @@ io.sockets.on('connection', function(socket) {
         }
     });
 
-    function get_video_id(url) {
-        return url.split("v=")[1].split("&")[0]
-    }
-
     socket.on('disconnect', function(data) {
-        if(!socket.nickname) return;
-        delete connected_users[socket.nickname];
-        announce_users();
+        if(connected_users[socket.nickname] == true) {
+            delete connected_users[socket.nickname];
+            announce_users();
+        }
     });
 
     function announce_users(){
@@ -111,6 +108,10 @@ io.sockets.on('connection', function(socket) {
                 }
             });
         });
+    }
+
+    function get_video_id(url) {
+        return url.split("v=")[1].split("&")[0]
     }
 
     function capitalizeFirstLetter(string) {
