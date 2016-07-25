@@ -122,18 +122,10 @@
                     </span>
                 </form>
 
-                <!--URL BLANK-->
-                <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="url-blank" style="display:none;">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <button type="button" class="close" id="closeAlert">×</button>
-                    Por favor inserte una URL.
-                </div>
-
-                <!--URL BLANK-->
                 <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="url-error" style="display:none;">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <button type="button" class="close" id="closeAlert">×</button>
-                    La URL no es correcta. Por favor introduzca una URL correcta.
+                    <span id="error-text"></span>
                 </div>
 
                 <!--URL SUCCESS-->
@@ -198,21 +190,15 @@
             if ($newURL.val()) {
                 socket.emit('update video', $newURL.val(), function(correct_url) {
                     if (correct_url) {
-                        $('#url-imput').val('');
-                        $('#url-success').show();
-                        $("#url-error").hide();
-                        $("#url-blank").hide();
+                        url_success();
                     } else {
-                        $('#url-success').hide();
-                        $("#url-error").show();
-                        $("#url-blank").hide();
+                        url_failure("La URL no es correcta. Por favor introduzca una URL correcta.")
                     }
                 });
 
             } else {
-                $('#url-success').hide();
-                $("#url-error").hide();
-                $("#url-blank").show();
+                url_failure("Por favor inserte una URL.")
+
             }
         });
 
@@ -225,6 +211,17 @@
         });
     });
 
+    function url_success(){
+        $('#url-imput').val('');
+        $('#url-success').show();
+        $("#url-error").hide();
+    }
+
+    function url_failure(message) {
+        document.getElementById("error-text").innerHTML = message;
+        $('#url-success').hide();
+        $("#url-error").show();
+    }
     </script>
 </body>
 </html>

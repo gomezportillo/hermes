@@ -72,7 +72,7 @@
                 <br/><br/><br/><br/>
             </div>
             <div>
-                <form id="nickWrap" class="input-group" style="width:600px;text-align:center;margin:0 auto;">
+                <form id="login-form" class="input-group" style="width:600px;text-align:center;margin:0 auto;">
                     <label for="first_name" class="my-label">Nombre</label>
                     <input type="text" class="form-control input-lg" name="" id="nickname" placeholder="Escriba su nombre">
                     <br/><br/>
@@ -94,138 +94,135 @@
                 </div>
 
                 <div>
+                    <div class="col-md-2"></div>
 
-                    <div class="col-md-2">
-                    </div>
-                    <!--LOG IN ERROR - USER EXISTS-->
+                    <!--LOG IN ERROR TEMPLATE-->
                     <div class="alert fade in alert-danger alert-dismissable col-md-8" data-dismiss="alert" id="login-error" style="display:none;">
                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                         <button type="button" class="close" id="closeAlert">×</button>
-                        Usuario o contraseña incorrecta. Por favor inténtelo de nuevo.
-                    </div>
-
-                    <!--LOG IN ERROR - BLANK NAME-->
-                    <div class="alert fade in alert-danger alert-dismissable col-md-8" data-dismiss="alert" id="user-void" style="display:none;">
-                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <button type="button" class="close" id="closeAlert">×</button>
-                        Por favor escriba su nombre y contraseña.
-                    </div>
-                </dvi>
-
-            </div>
-        </div>
-
-        <div id="contentWrap">
-
-            <div id="videoWrap" class="row">
-                <!--VIDEO-->
-                <center>
-                    <iframe id="youtube-video" width="700" height="400" allowfullscreen/></iframe>
-                </center>
-                <br/><br/>
-
-            </div>
-
-            <!--CHAT FORM-->
-            <div id="chatWrap" class="row">
-
-                <!--USERS-->
-                <div class="col-md-3">
-                    <div class="well well-sm">
-                        <legend class="the-legend">Usuarios conectados</legend>
-                        <div id="users" class="panel-body">
-                        </div>
+                        <span id="error-text"></span>
                     </div>
                 </div>
+            </div>
 
-                <!--CHAT-->
-                <div class="col-md-9">
-                    <div class="well well-sm well-custom">
-                        <legend class="the-legend">Chat</legend>
-                        <div id="chat" class="panel-body">
-                            <!--center><b>Bienvenido al chat<br/></b></center-->
+            <div id="contentWrap">
+
+                <div id="videoWrap" class="row">
+                    <!--VIDEO-->
+                    <center>
+                        <iframe id="youtube-video" width="700" height="400" allowfullscreen/></iframe>
+                    </center>
+                    <br/><br/>
+
+                </div>
+
+                <!--CHAT FORM-->
+                <div id="chatWrap" class="row">
+
+                    <!--USERS-->
+                    <div class="col-md-3">
+                        <div class="well well-sm">
+                            <legend class="the-legend">Usuarios conectados</legend>
+                            <div id="users" class="panel-body">
+                            </div>
                         </div>
-                        <form id="send-message" class="input-group">
-                            <input id="message" class="form-control input-lg" type="text" placeholder="Escriba su pregunta">
-                            <span class="input-group-btn">
-                                <button class="btn btn-lg btn-primary" type="submit">
-                                    <span class="glyphicon glyphicon-send"></span>
-                                    Enviar
-                                </button>
-                            </span>
-                        </form>
+                    </div>
+
+                    <!--CHAT-->
+                    <div class="col-md-9">
+                        <div class="well well-sm well-custom">
+                            <legend class="the-legend">Chat</legend>
+                            <div id="chat" class="panel-body">
+                                <!--center><b>Bienvenido al chat<br/></b></center-->
+                            </div>
+                            <form id="send-message" class="input-group">
+                                <input id="message" class="form-control input-lg" type="text" placeholder="Escriba su pregunta">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-lg btn-primary" type="submit">
+                                        <span class="glyphicon glyphicon-send"></span>
+                                        Enviar
+                                    </button>
+                                </span>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="/socket.io/socket.io.js"></script>
-<script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
 
-jQuery(function($) {
-    var socket = io.connect();
-    var $messageForm = $('#send-message');
-    var $messageBox = $('#message');
-    var $chat = $('#chat');
-    var $nickForm = $('#setNick');
-    var $buttonSend = $('#send');
-    var $nickBox = $('#nickname');
-    var $passBox = $('#password');
-    var $users = $('#users');
-    var $closeAlert = $('#closeAlert');
+    jQuery(function($) {
+        var socket = io.connect();
+        var $messageForm = $('#send-message');
+        var $messageBox = $('#message');
+        var $chat = $('#chat');
+        var $nickForm = $('#setNick');
+        var $buttonSend = $('#send');
+        var $nickBox = $('#nickname');
+        var $passBox = $('#password');
+        var $users = $('#users');
+        var $closeAlert = $('#closeAlert');
 
-    $nickForm.click(function(e) {
-        e.preventDefault();
-        if($nickBox.val() && $passBox.val()) {
-            socket.emit('new user', $nickBox.val(), $passBox.val(), function(nick_available) {
-                if(nick_available) {
-                    $('#nickWrap').hide();
-                    $('#contentWrap').show();
-                    $("#login-error").hide();
-                    $("#user-void").hide();
-                } else {
-                    $("#login-error").show();
-                    $("#user-void").hide();
-                }
-            });
-        } else {
-            $("#user-void").show();
+        $nickForm.click(function(e) {
+            e.preventDefault();
+            if($nickBox.val() && $passBox.val()) {
+                socket.emit('new user', $nickBox.val(), $passBox.val(), function(nick_available) {
+                    if(nick_available) {
+                        show_content();
+                    } else {
+                        show_login_error("Usuario o contraseña incorrecta. Por favor inténtelo de nuevo.");
+                    }
+                });
+            } else {
+                show_login_error("Por favor, introduzca su nombre y contraseña");
+            }
+            $nickBox.val('');
+            $passBox.val('');
+        });
+
+        $messageForm.submit(function(e) {
+            e.preventDefault();
+            if($messageBox.val()!='') {
+                socket.emit('send message', $messageBox.val());
+            }
+            $messageBox.val('');
+        });
+
+        socket.on('new message', function(data) {
+            if (data.nick == '¬HERMES:professor') {
+                $chat.append("<b><font color=#428BCA>DOCENTE: </font></b>" + data.msg + "<br/>");
+            } else {
+                $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
+            }
+        });
+
+        socket.on('user connected', function(all_users) {
+            var users = '';
+            for (var name in all_users) {
+                users += name + '<br/>';
+            }
+            $users.html(users);
+        });
+
+        socket.on('update url', function(url) {
+            document.getElementById("youtube-video").setAttribute("src", url);
+        });
+
+        function show_login_error(message) {
+            document.getElementById("error-text").innerHTML = message;
+            $("#login-error").show();
+            $("#user-void").hide();
+        }
+
+        function show_content() {
             $("#login-error").hide();
-        }
-        $nickBox.val('');
-    });
-
-    $messageForm.submit(function(e) {
-        e.preventDefault();
-        if($messageBox.val()!='') {
-            socket.emit('send message', $messageBox.val());
-        }
-        $messageBox.val('');
-    });
-
-    socket.on('new message', function(data) {
-        if (data.nick == '¬HERMES:professor') {
-            $chat.append("<b><font color=#428BCA>DOCENTE: </font></b>" + data.msg + "<br/>");
-        } else {
-            $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
+            $('#nickWrap').hide();
+            $('#contentWrap').show();
         }
     });
-
-    socket.on('user connected', function(all_users) {
-        var users = '';
-        for (var name in all_users) {
-            users += name + '<br/>';
-        }
-        $users.html(users);
-    });
-
-    socket.on('update url', function(url) {
-        document.getElementById("youtube-video").setAttribute("src", url);
-    });
-
-});
-</script>
+    </script>
 </body>
 </html>
