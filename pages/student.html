@@ -120,7 +120,7 @@
             <div id="videoWrap" class="row">
                 <!--VIDEO-->
                 <center>
-                    <iframe width="700" height="400" src="http://youtube.com/embed/-W143cZTCgQ" allowfullscreen/></iframe>
+                    <iframe width="700" height="400" src="https://youtube.com/embed/-W143cZTCgQ" allowfullscreen/></iframe>
                 </center>
                 <br/><br/>
 
@@ -205,8 +205,8 @@ jQuery(function($) {
     });
 
     socket.on('new message', function(data) {
-        if (data.nick == '¬HERMES:profesor') {
-            $chat.append("<b><font color=#428BCA>PROFESOR: </font></b>" + data.msg + "<br/>");
+        if (data.nick == '¬HERMES:professor') {
+            $chat.append("<b><font color=#428BCA>DOCENTE: </font></b>" + data.msg + "<br/>");
         } else {
             $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
         }

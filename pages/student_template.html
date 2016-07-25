@@ -206,8 +206,8 @@ jQuery(function($) {
     });
 
     socket.on('new message', function(data) {
-        if (data.nick == '¬HERMES:profesor') {
-            $chat.append("<b><font color=#428BCA>PROFESOR: </font></b>" + data.msg + "<br/>");
+        if (data.nick == '¬HERMES:professor') {
+            $chat.append("<b><font color=#428BCA>DOCENTE: </font></b>" + data.msg + "<br/>");
         } else {
             $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
         }
