@@ -69,9 +69,9 @@
             </form>
             <br/><br/>
             <div class="col-md-2"></div>
-            <div class="alert fade in alert-danger alert-dismissable col-md-8" data-dismiss="alert" id="password_error" style="display:none;">
+            <div class="alert fade in alert-danger alert-dismissable col-md-8" id="password_error" style="display:none;">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <button type="button" class="close" id="closeAlert">×</button>
+                <button type="button" class="close" onclick="$('#password_error').hide();" id="closeAlert">×</button>
                 <span id="error-text"></span>
             </div>
         </div>
@@ -120,7 +120,7 @@
                 <!--ERROR ANNOUNCEMENTS-->
                 <div class="alert fade in alert-danger alert-dismissable" id="url-error" style="display:none;">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <button type="button" class="close" id="closeAlert alert-close">×</button>
+                    <button type="button" class="close" onclick='$("#url-error").hide();' id="closeAlert alert-close">×</button>
                     <span id="error-text"></span>
                 </div>
 

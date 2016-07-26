@@ -97,9 +97,9 @@
                     <div class="col-md-2"></div>
 
                     <!--LOG IN ERROR TEMPLATE-->
-                    <div class="alert fade in alert-danger alert-dismissable col-md-8" data-dismiss="alert" id="login-error" style="display:none;">
+                    <div class="alert fade in alert-danger alert-dismissable col-md-8" id="login-error" style="display:none;">
                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <button type="button" class="close" id="closeAlert">×</button>
+                        <button type="button" class="close" onclick='$("#login-error").hide();' id="closeAlert">×</button>
                         <span id="error-text"></span>
                     </div>
                 </div>
