@@ -49,7 +49,7 @@
         <div class="page-header">
             <h1>
                 <a href="/admin"><img src="/hermes-logo.png" width="45px" height="45px"/></a>
-                Hermes <small>es un proyecto del <a href="http://blog.uclm.es/cted" target="_blank">C:TED</a> y la <a href="http://uclm.es" target="_blank">Universidad de Castilla-La Mancha</a></small>
+                Hermes Professor <small>es un proyecto del <a href="http://blog.uclm.es/cted" target="_blank">C:TED</a> y la <a href="http://uclm.es" target="_blank">Universidad de Castilla-La Mancha</a></small>
             </h1>
         </div>
         <br/>
@@ -72,7 +72,7 @@
             <div class="alert fade in alert-danger alert-dismissable col-md-8" id="password_error" style="display:none;">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <button type="button" class="close" onclick="$('#password_error').hide();" id="closeAlert">×</button>
-                <span id="error-text"></span>
+                <span id="password-error-text"></span>
             </div>
         </div>
 
@@ -121,13 +121,13 @@
                 <div class="alert fade in alert-danger alert-dismissable" id="url-error" style="display:none;">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <button type="button" class="close" onclick='$("#url-error").hide();' id="closeAlert alert-close">×</button>
-                    <span id="error-text"></span>
+                    <span id="url-error-text"></span>
                 </div>
 
                 <!--URL SUCCESS-->
-                <div class="alert fade in alert-success alert-dismissable" data-dismiss="alert" id="url-success" style="display:none;">
+                <div class="alert fade in alert-success alert-dismissable" id="url-success" style="display:none;">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                    <button type="button" class="close" id="closeAlert">×</button>
+                    <button type="button" class="close" onclick='$("#url-success").hide();' id="closeAlert">×</button>
                     URL actualizada con éxito.
                 </div>
             </div>
@@ -205,18 +205,19 @@
     });
 
     function password_failure(message) {
-        document.getElementById("error-text").innerHTML = message;
+        document.getElementById("password-error-text").innerHTML = message;
         $('#password_error').show();
     }
 
-    function url_success(){
+    function url_success() {
         $('#url-imput').val('');
         $('#url-success').show();
         $("#url-error").hide();
     }
 
     function url_failure(message) {
-        document.getElementById("error-text").innerHTML = message;
+        document.getElementById("url-error-text").innerHTML = message;
+        $('#url-imput').val('');
         $('#url-success').hide();
         $("#url-error").show();
     }
