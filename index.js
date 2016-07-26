@@ -54,7 +54,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('log professor', function(password, callback) {
         if (password == 'cted') {
             socket.nickname = professor_nickname;
-            announce_users();
+            socket.emit('user connected', connected_users);
             callback(true);
         } else {
             callback(false);
@@ -66,7 +66,7 @@ io.sockets.on('connection', function(socket) {
             var url_base = "https://youtube.com/embed/";
             var url_id = get_video_id(url);
 
-            if (typeof url_id == 'undefined' || url_id == '' || url_id.length != 11) {
+            if (typeof url_id == 'undefined' || url_id.length != 11) {
                 callback(false);
             } else {
 

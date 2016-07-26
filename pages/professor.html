@@ -34,15 +34,12 @@
         height: 90%;
         overflow: auto;
     }
-
     .well {
         background: rgb(250, 250, 250);
     }
-
     .well-custom {
         height: 75%;
     }
-
     </style>
 </head>
 
@@ -70,11 +67,12 @@
                     </button>
                 </span>
             </form>
-
-            <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="password_error" style="display:none;">
+            <br/><br/>
+            <div class="col-md-2"></div>
+            <div class="alert fade in alert-danger alert-dismissable col-md-8" data-dismiss="alert" id="password_error" style="display:none;">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <button type="button" class="close" id="closeAlert">×</button>
-                La contraseña no es correcta.
+                <span id="error-text"></span>
             </div>
         </div>
 
@@ -94,7 +92,6 @@
                 <div class="well well-sm well-custom">
                     <legend class="the-legend">Chat</legend>
                     <div id="chat" class="panel-body">
-                        <!--center><b>Bienvenido al chat<br/></b></center-->
                     </div>
                     <form id="send-message" class="input-group">
                         <input id="message" class="form-control input-lg" type="text" placeholder="Escriba su mensaje">
@@ -108,9 +105,7 @@
                 </div>
             </div>
 
-            <!--ERROR ANNOUNCEMENTS-->
             <div class="col-md-12">
-
                 <!--UPDATE VIDEO FORM-->
                 <form id="update-video-form" class="input-group">
                     <input id="url-imput" class="form-control input-lg" type="text" placeholder="URL del vídeo de YouTube">
@@ -122,9 +117,10 @@
                     </span>
                 </form>
 
-                <div class="alert fade in alert-danger alert-dismissable" data-dismiss="alert" id="url-error" style="display:none;">
+                <!--ERROR ANNOUNCEMENTS-->
+                <div class="alert fade in alert-danger alert-dismissable" id="url-error" style="display:none;">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <button type="button" class="close" id="closeAlert">×</button>
+                    <button type="button" class="close" id="closeAlert alert-close">×</button>
                     <span id="error-text"></span>
                 </div>
 
@@ -151,7 +147,6 @@
         var $messageForm = $('#send-message');
         var $messageBox = $('#message');
 
-
         socket.on('new message', function(data) {
             if (data.nick == '¬HERMES:professor') {
                 $chat.append("<b><font color=#428BCA>DOCENTE: </font></b>" + data.msg + "<br/>");
@@ -177,11 +172,11 @@
                         $login.hide();
                         $('#contentWrap').show()
                     } else {
-                        $('#password_error').show();
+                        password_failure("La contraseña no es correcta.");
                     }
                 });
             } else {
-                $('#password_error').show();
+                password_failure("La contraseña no puede estar en blanco.");
             }
         });
 
@@ -195,10 +190,8 @@
                         url_failure("La URL no es correcta. Por favor introduzca una URL correcta.")
                     }
                 });
-
             } else {
                 url_failure("Por favor inserte una URL.")
-
             }
         });
 
@@ -210,6 +203,11 @@
             $messageBox.val('');
         });
     });
+
+    function password_failure(message) {
+        document.getElementById("error-text").innerHTML = message;
+        $('#password_error').show();
+    }
 
     function url_success(){
         $('#url-imput').val('');

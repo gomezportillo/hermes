@@ -133,7 +133,6 @@
                         <div class="well well-sm well-custom">
                             <legend class="the-legend">Chat</legend>
                             <div id="chat" class="panel-body">
-                                <!--center><b>Bienvenido al chat<br/></b></center-->
                             </div>
                             <form id="send-message" class="input-group">
                                 <input id="message" class="form-control input-lg" type="text" placeholder="Escriba su pregunta">
@@ -153,7 +152,6 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-
     jQuery(function($) {
         var socket = io.connect();
         var $messageForm = $('#send-message');
@@ -169,8 +167,8 @@
         $nickForm.click(function(e) {
             e.preventDefault();
             if($nickBox.val() && $passBox.val()) {
-                socket.emit('new user', $nickBox.val(), $passBox.val(), function(nick_available) {
-                    if(nick_available) {
+                socket.emit('new user', $nickBox.val(), $passBox.val(), function(correct) {
+                    if(correct) {
                         show_content();
                     } else {
                         show_login_error("Usuario o contraseña incorrecta. Por favor inténtelo de nuevo.");
@@ -187,8 +185,8 @@
             e.preventDefault();
             if($messageBox.val()!='') {
                 socket.emit('send message', $messageBox.val());
+                $messageBox.val('');
             }
-            $messageBox.val('');
         });
 
         socket.on('new message', function(data) {
