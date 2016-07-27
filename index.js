@@ -3,14 +3,15 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require("socket.io").listen(server);
 var fs = require('fs');
-var connected_users = {};
-var registered_users = {};
+var _PORT = 8080
 var professor_nickname = '¬HERMES:professor'
 var youtube_video = "https://youtube.com/embed/FBBn72oY8nc";
+var connected_users = {};
+var registered_users = {};
 
 app.use(express.static(__dirname + '/images'));
 
-server.listen(8080);
+server.listen(_PORT);
 
 app.get('/', function(req, res) {
     res.sendfile('pages/student.html');
@@ -23,11 +24,11 @@ app.get('/admin', function(req, res) {
 io.sockets.on('connection', function(socket) {
 
     socket.on('send message', function(data) {
-        if (connected_users[socket.nickname] == true || socket.nickname == professor_nickname) { //si el usuario que manda está conectado
+        if (connected_users[socket.nickname] == true || socket.nickname == professor_nickname) { //si el usuario que MANDA está conectado
             var sender_name = socket.nickname;
 
             io.sockets.clients().forEach(function (socket) {
-                if (connected_users[socket.nickname] == true || socket.nickname == professor_nickname) { //si el usuario que recibe está conectado
+                if (connected_users[socket.nickname] == true || socket.nickname == professor_nickname) { //si el usuario que RECIBE está conectado
                     socket.emit('new message', {msg: data, nick: sender_name});
                 }
             });
@@ -36,17 +37,18 @@ io.sockets.on('connection', function(socket) {
 
     socket.on('new user', function(user, password, callback) {
         if (connected_users[user] == true) { //si el estudiante ya está conectado
-            callback(false);
+            callback(false, "Ya hay un usuario con estas credenciales conectado.");
         } else {
             load_csv_users_file();
             if (registered_users[user] == password) { //si nombre y contraseña coinciden
-                socket.nickname = capitalizeFirstLetter(user);
+                socket.nickname = user;
                 connected_users[socket.nickname] = true;
+
                 announce_users();
-                callback(true);
+                callback(true, "Usuario y contraseña conrrectos.");
                 socket.emit('update url', youtube_video);
             } else {
-                callback(false);
+                callback(false, "Usuario o contraseña incorrecta. Por favor inténtelo de nuevo.");
             }
         }
     });

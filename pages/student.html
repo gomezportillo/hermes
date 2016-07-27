@@ -167,11 +167,11 @@
         $nickForm.click(function(e) {
             e.preventDefault();
             if($nickBox.val() && $passBox.val()) {
-                socket.emit('new user', $nickBox.val(), $passBox.val(), function(correct) {
+                socket.emit('new user', $nickBox.val(), $passBox.val(), function(correct, message) {
                     if(correct) {
                         show_content();
                     } else {
-                        show_login_error("Usuario o contraseña incorrecta. Por favor inténtelo de nuevo.");
+                        show_login_error(message);
                     }
                 });
             } else {
