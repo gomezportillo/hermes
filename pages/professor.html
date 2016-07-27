@@ -166,28 +166,28 @@
         $login.submit(function(e) {
             e.preventDefault();
             if($password.val()) {
-                socket.emit('log professor', $password.val(), function(correct) {
-                    $password.val('');
+                socket.emit('log professor', $password.val(), function(correct, message) {
                     if (correct) {
                         $login.hide();
                         $('#contentWrap').show()
                     } else {
-                        password_failure("La contraseña no es correcta.");
+                        password_failure(message);
                     }
                 });
             } else {
                 password_failure("La contraseña no puede estar en blanco.");
             }
+            $password.val('');
         });
 
         $updateVideo.submit(function(e) {
             e.preventDefault();
             if ($newURL.val()) {
-                socket.emit('update video', $newURL.val(), function(correct_url) {
+                socket.emit('update video', $newURL.val(), function(correct_url, message) {
                     if (correct_url) {
                         url_success();
                     } else {
-                        url_failure("La URL no es correcta. Por favor introduzca una URL correcta.")
+                        url_failure(message);
                     }
                 });
             } else {

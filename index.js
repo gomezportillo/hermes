@@ -3,8 +3,9 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require("socket.io").listen(server);
 var fs = require('fs');
-var _PORT = 8080
-var professor_nickname = '¬HERMES:professor'
+const _PORT = 8080;
+const _professor_nickname = '¬HERMES:professor';
+var professor_connected = false;
 var youtube_video = "https://youtube.com/embed/FBBn72oY8nc";
 var connected_users = {};
 var registered_users = {};
@@ -24,11 +25,11 @@ app.get('/admin', function(req, res) {
 io.sockets.on('connection', function(socket) {
 
     socket.on('send message', function(data) {
-        if (connected_users[socket.nickname] == true || socket.nickname == professor_nickname) { //si el usuario que MANDA está conectado
+        if (connected_users[socket.nickname] == true || socket.nickname == _professor_nickname) { //si el usuario que MANDA está conectado
             var sender_name = socket.nickname;
 
             io.sockets.clients().forEach(function (socket) {
-                if (connected_users[socket.nickname] == true || socket.nickname == professor_nickname) { //si el usuario que RECIBE está conectado
+                if (connected_users[socket.nickname] == true || socket.nickname == _professor_nickname) { //si el usuario que RECIBE está conectado
                     socket.emit('new message', {msg: data, nick: sender_name});
                 }
             });
@@ -54,24 +55,27 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('log professor', function(password, callback) {
+        if (professor_connected) {
+            callback(false, "Ya hay un profesor conectado. Espere a que acabe su sesión.")
+        }
         if (password == 'cted') {
-            socket.nickname = professor_nickname;
+            professor_connected = true;
+            socket.nickname = _professor_nickname;
             socket.emit('user connected', connected_users);
-            callback(true);
+            callback(true, "Success");
         } else {
-            callback(false);
+            callback(false, "La contraseña no es correcta.");
         }
     });
 
     socket.on('update video', function(url, callback) {
-        if (socket.nickname == professor_nickname) {
+        if (socket.nickname == _professor_nickname) {
             var url_base = "https://youtube.com/embed/";
             var url_id = get_video_id(url);
 
             if (typeof url_id == 'undefined' || url_id.length != 11) {
-                callback(false);
+                callback(false, "La URL no es correcta. Por favor introduzca una URL correcta.");
             } else {
-
                 youtube_video = url_base + url_id;
 
                 io.sockets.clients().forEach(function (socket) {
@@ -79,13 +83,15 @@ io.sockets.on('connection', function(socket) {
                         socket.emit('update url', youtube_video);
                     }
                 });
-                callback(true);
+                callback(true, "Success");
             }
         }
     });
 
     socket.on('disconnect', function(data) {
-        if(connected_users[socket.nickname] == true) {
+        if (socket.nickname == _professor_nickname) {
+            professor_connected = false;
+        } else if(connected_users[socket.nickname] == true) {
             delete connected_users[socket.nickname];
             announce_users();
         }
