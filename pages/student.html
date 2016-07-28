@@ -209,6 +209,13 @@
             document.getElementById("youtube-video").setAttribute("src", url);
         });
 
+        socket.on('being kicked', function(url) {
+            alert("Ha sido bloqueado por el docente.");
+            document.getElementById("youtube-video").setAttribute("src", "");
+            $users.html("");
+            window.location.href = "\\";
+        });
+
         function show_login_error(message) {
             document.getElementById("error-text").innerHTML = message;
             $("#login-error").show();

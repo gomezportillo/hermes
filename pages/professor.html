@@ -40,6 +40,12 @@
     .well-custom {
         height: 75%;
     }
+    .astext {
+        background:none;
+        border:none;
+        margin:0;
+        padding:0;
+    }
     </style>
 </head>
 
@@ -135,7 +141,8 @@
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script>
+    <script >
+    kick_jQuery_function = null;
     jQuery(function($) {
         var socket = io.connect();
         var $chat = $('#chat');
@@ -155,10 +162,10 @@
             }
         });
 
-        socket.on('user connected', function(data) {
+        socket.on('user connected', function(usernames) {
             var users = '';
-            for (var username in data) {
-                users += username + '<br/>';
+            for (var name in usernames) {
+                users += "<button class='astext' onclick='kick_user(\"" + name + "\")'><font color=#C84137>✖</font></button> " + name + "<br/>"
             }
             $users.html(users);
         });
@@ -202,6 +209,17 @@
             }
             $messageBox.val('');
         });
+
+        function kick_user(user) {
+            var message = "¿Seguro que quiere expulsar definitivamente a " + user + "? No podrá desbloquearlo hasta que cierre sesión."
+            var accept = confirm(message)
+            if (accept) {
+                socket.emit('kick user', user, function(message) {
+                    alert(message);
+                });
+            }
+        }
+        kick_jQuery_function = kick_user;
     });
 
     function password_failure(message) {
@@ -220,6 +238,10 @@
         $('#url-imput').val('');
         $('#url-success').hide();
         $("#url-error").show();
+    }
+
+    function kick_user(user) {
+        kick_jQuery_function(user)
     }
     </script>
 </body>

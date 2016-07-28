@@ -7,6 +7,7 @@ const _PORT = 8080;
 const _professor_nickname = '¬HERMES:professor';
 var professor_connected = false;
 var youtube_video = "https://youtube.com/embed/FBBn72oY8nc";
+var blocked_users = {};
 var connected_users = {};
 var registered_users = {};
 
@@ -27,7 +28,6 @@ io.sockets.on('connection', function(socket) {
     socket.on('send message', function(data) {
         if (connected_users[socket.nickname] == true || socket.nickname == _professor_nickname) { //si el usuario que MANDA está conectado
             var sender_name = socket.nickname;
-
             io.sockets.clients().forEach(function (socket) {
                 if (connected_users[socket.nickname] == true || socket.nickname == _professor_nickname) { //si el usuario que RECIBE está conectado
                     socket.emit('new message', {msg: data, nick: sender_name});
@@ -37,20 +37,26 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('new user', function(user, password, callback) {
-        if (connected_users[user] == true) { //si el estudiante ya está conectado
+        load_csv_users_file();
+
+        if (connected_users[user]) { //si el estudiante ya está conectado
             callback(false, "Ya hay un usuario con estas credenciales conectado.");
-        } else {
-            load_csv_users_file();
-            if (registered_users[user] == password) { //si nombre y contraseña coinciden
+
+        } else if (registered_users[user] == password) { //si nombre y contraseña coinciden
+
+            if (blocked_users[user]) { //si el estudiante ha sido bloqueado
+                callback(false, "Error al intentar conectar. El docente le ha bloqueado.");
+
+            } else {
                 socket.nickname = user;
                 connected_users[socket.nickname] = true;
-
-                announce_users();
                 callback(true, "Usuario y contraseña conrrectos.");
                 socket.emit('update url', youtube_video);
-            } else {
-                callback(false, "Usuario o contraseña incorrecta. Por favor inténtelo de nuevo.");
+                announce_users();
             }
+
+        } else {
+            callback(false, "Usuario o contraseña incorrecta. Por favor inténtelo de nuevo.");
         }
     });
 
@@ -88,9 +94,26 @@ io.sockets.on('connection', function(socket) {
         }
     });
 
+    socket.on('kick user', function(username, callback) {
+        if (socket.nickname == _professor_nickname) {
+            io.sockets.clients().forEach(function (socket) {
+                if (socket.nickname == username) {
+                    socket.emit('being kicked');
+                    blocked_users[username] = true;
+                    delete connected_users[socket.nickname];
+                    announce_users()
+                }
+            });
+        } else {
+            callback("No se ha podido expulsar a " + username + "con éxito.")
+        }
+    });
+
     socket.on('disconnect', function(data) {
         if (socket.nickname == _professor_nickname) {
             professor_connected = false;
+            youtube_video = "https://youtube.com/embed/FBBn72oY8nc"; 
+            blocked_users = {}; //todos los usuarios que hubieran sido bloqueados por el antrerior docente se desbloquean
         } else if(connected_users[socket.nickname] == true) {
             delete connected_users[socket.nickname];
             announce_users();
@@ -99,7 +122,7 @@ io.sockets.on('connection', function(socket) {
 
     function announce_users(){
         io.sockets.clients().forEach(function (socket) {
-            if (connected_users[socket.nickname] == true) { //si el usuario que recibe está conectado
+            if (connected_users[socket.nickname] == true || socket.nickname == _professor_nickname) { //si el usuario que recibe está conectado
                 socket.emit('user connected', connected_users);
             }
         });
