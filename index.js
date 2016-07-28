@@ -5,8 +5,9 @@ var io = require("socket.io").listen(server);
 var fs = require('fs');
 const _PORT = 8080;
 const _professor_nickname = '¬HERMES:professor';
+const _BASE_VIDEO = "https://youtube.com/embed/FBBn72oY8nc";
+var youtube_video = _BASE_VIDEO
 var professor_connected = false;
-var youtube_video = "https://youtube.com/embed/FBBn72oY8nc";
 var blocked_users = {};
 var connected_users = {};
 var registered_users = {};
@@ -21,6 +22,10 @@ app.get('/', function(req, res) {
 
 app.get('/admin', function(req, res) {
     res.sendfile('pages/professor.html');
+});
+
+app.get('*', function(req, res) {
+    res.sendfile('pages/404.html');
 });
 
 io.sockets.on('connection', function(socket) {
@@ -112,7 +117,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('disconnect', function(data) {
         if (socket.nickname == _professor_nickname) {
             professor_connected = false;
-            youtube_video = "https://youtube.com/embed/FBBn72oY8nc"; 
+            youtube_video = _BASE_VIDEO;
             blocked_users = {}; //todos los usuarios que hubieran sido bloqueados por el antrerior docente se desbloquean
         } else if(connected_users[socket.nickname] == true) {
             delete connected_users[socket.nickname];
