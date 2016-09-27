@@ -31,10 +31,10 @@ app.get('*', function(req, res) {
 io.sockets.on('connection', function(socket) {
 
     socket.on('send message', function(data) {
-        if (connected_users[socket.nickname] == true || socket.nickname == _professor_nickname) { //si el usuario que MANDA está conectado
+        if (connected_users[socket.nickname] || socket.nickname == _professor_nickname) { //si el usuario que MANDA está conectado
             var sender_name = socket.nickname;
             io.sockets.clients().forEach(function (socket) {
-                if (connected_users[socket.nickname] == true || socket.nickname == _professor_nickname) { //si el usuario que RECIBE está conectado
+                if (connected_users[socket.nickname] || socket.nickname == _professor_nickname) { //si el usuario que RECIBE está conectado
                     socket.emit('new message', {msg: data, nick: sender_name});
                 }
             });
@@ -90,7 +90,7 @@ io.sockets.on('connection', function(socket) {
                 youtube_video = url_base + url_id;
 
                 io.sockets.clients().forEach(function (socket) {
-                    if (connected_users[socket.nickname] == true) { //si el usuario que recibe está conectado
+                    if (connected_users[socket.nickname]) { //si el usuario que recibe está conectado
                         socket.emit('update url', youtube_video);
                     }
                 });
@@ -106,11 +106,11 @@ io.sockets.on('connection', function(socket) {
                     socket.emit('being kicked');
                     blocked_users[username] = true;
                     delete connected_users[socket.nickname];
-                    announce_users()
+                    announce_users();
                 }
             });
         } else {
-            callback("No se ha podido expulsar a " + username + "con éxito.")
+            callback("No se ha podido expulsar a " + username)
         }
     });
 
@@ -119,7 +119,7 @@ io.sockets.on('connection', function(socket) {
             professor_connected = false;
             youtube_video = _BASE_VIDEO;
             blocked_users = {}; //todos los usuarios que hubieran sido bloqueados por el antrerior docente se desbloquean
-        } else if(connected_users[socket.nickname] == true) {
+        } else if (connected_users[socket.nickname]) {
             delete connected_users[socket.nickname];
             announce_users();
         }
@@ -127,7 +127,7 @@ io.sockets.on('connection', function(socket) {
 
     function announce_users(){
         io.sockets.clients().forEach(function (socket) {
-            if (connected_users[socket.nickname] == true || socket.nickname == _professor_nickname) { //si el usuario que recibe está conectado
+            if (connected_users[socket.nickname] || socket.nickname == _professor_nickname) { //si el usuario que recibe está conectado
                 socket.emit('user connected', connected_users);
             }
         });
