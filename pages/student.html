@@ -2,27 +2,26 @@
 <head>
     <title>Hermes - Estudiante</title>
 
-    <script src="https://code.jquery.com/jquery.js"></script>
     <link rel="shortcut icon" type="image/png" href="/favicon.png">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     <!-- ARCHIVO NARROW-->
     <link href="http://fonts.googleapis.com/css?family=Tangerine" rel="stylesheet" type="text/css" />
+
     <!-- INTENET EXPLORER COMPATIBILITY-->
     <script src="http://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="http://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 
     <style>
-    h1 {
-        font-family: 'Archivo Narrow';
-    }
     body {
-        font-family: 'Archivo Narrow' !important;
+        font-family: 'Archivo Narrow', 'Arial' !important;
         font-size: 18px;
         background-color:#FDFDFD;">
     }
@@ -50,6 +49,9 @@
     .well-custom {
         height: 60%;
     }
+    .div-space {
+        margin-top: 2em;
+    }
     </style>
 
 </head>
@@ -61,173 +63,178 @@
         <div class="page-header">
             <h1>
                 <a href="/"><img src="/hermes-logo.png" width="45px" height="45px"/></a>
-                Hermes <small>es un proyecto del <a href="http://blog.uclm.es/cted" target="_blank">C:TED</a> y la <a href="http://uclm.es" target="_blank">Universidad de Castilla-La Mancha</a></small>
+                Hermes <small>es un proyecto del <a href="http://blog.uclm.es/cted" target="_blank">C:TED</a> de la <a href="http://uclm.es" target="_blank">Universidad de Castilla-La Mancha</a></small>
             </h1>
         </div>
         <br/>
 
         <!--LOG IN-->
         <div id="nickWrap">
-            <div>
-                <br/><br/><br/><br/>
-            </div>
-            <div>
-                <form id="login-form" class="input-group" style="width:600px;text-align:center;margin:0 auto;">
+            <div class="col-md-6 col-md-offset-3">
+                <form id="login-form" class="input-group">
+                    <div>
+                        <br>
+                    </div>
+
                     <label for="first_name" class="my-label">Nombre</label>
                     <input type="text" class="form-control input-lg" name="" id="nickname" placeholder="Escriba su nombre">
-                    <br/><br/>
-                    <label for="password" class="my-label">Contraseña</label>
+
+                    <label for="password" class="my-label div-space">Contraseña</label>
                     <input type="password" class="form-control input-lg" name="" id="password" placeholder="Escriba su contraseña">
-                    <br/><br/><br/>
-                    <button class="btn btn-lg btn-primary btn-block" id="setNick">
+
+                    <div>
+                        <br><br><br><br><br><br><br><br>
+                    </div>
+
+                    <button class="btn btn-lg btn-primary btn-block div-space" id="setNick">
                         <span class="glyphicon glyphicon-check"></span>
                         Acceder
                     </button>
 
+                    <div>
+                        <br><br><br><br><br><br><br>
+                        <center>
+                            <p>Acceder como <a href="/admin">profesor</a></p>
+                        </center>
+                    </div>
+
                 </form>
             </div>
-            <div>
-                <br/><br/><br/><br/><br/><br/><br/>
-                <center>
-                    <p>Acceder como <a href="/admin">profesor</a>
-                    </center>
-                </div>
 
-                <div>
-                    <div class="col-md-2"></div>
+            <!--LOG IN ERROR TEMPLATE-->
+            <div class="alert fade in alert-danger alert-dismissable col-md-8 col-md-offset-2" id="login-error" style="display:none;">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <button type="button" class="close" onclick='$("#login-error").hide();' id="closeAlert">×</button>
+                <span id="error-text"></span>
+            </div>
+            <div class="col-md-2"></div>
 
-                    <!--LOG IN ERROR TEMPLATE-->
-                    <div class="alert fade in alert-danger alert-dismissable col-md-8" id="login-error" style="display:none;">
-                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <button type="button" class="close" onclick='$("#login-error").hide();' id="closeAlert">×</button>
-                        <span id="error-text"></span>
-                    </div>
+        </div>
+
+        <div id="contentWrap">
+            <!--VIDEO-->
+            <div class="col-md-8 col-md-offset-2">
+                <div class="embed-responsive embed-responsive-16by9" style="border-style: solid; border-radius:2px; border-width: 3px;">
+                    <iframe class="embed-responsive-item" id="youtube-video" allowfullscreen></iframe>
                 </div>
             </div>
 
-            <div id="contentWrap">
+            <div class="col-md-12">
+                <hr class="divider"></hr>
+            </div>
+            
+            <!--CHAT FORM-->
+            <div id="chatWrap" class="row">
 
-                <div id="videoWrap" class="row">
-                    <!--VIDEO-->
-                    <center>
-                        <iframe id="youtube-video" width="700" height="400" allowfullscreen/></iframe>
-                    </center>
-                    <br/><br/>
-
-                </div>
-
-                <!--CHAT FORM-->
-                <div id="chatWrap" class="row">
-
-                    <!--USERS-->
-                    <div class="col-md-3">
-                        <div class="well well-sm">
-                            <legend class="the-legend">Usuarios conectados</legend>
-                            <div id="users" class="panel-body">
-                            </div>
+                <!--USERS-->
+                <div class="col-md-3">
+                    <div class="well well-sm">
+                        <legend class="the-legend">Usuarios conectados</legend>
+                        <div id="users" class="panel-body">
                         </div>
                     </div>
+                </div>
 
-                    <!--CHAT-->
-                    <div class="col-md-9">
-                        <div class="well well-sm well-custom">
-                            <legend class="the-legend">Chat</legend>
-                            <div id="chat" class="panel-body">
-                            </div>
-                            <form id="send-message" class="input-group">
-                                <input id="message" class="form-control input-lg" type="text" placeholder="Escriba su pregunta">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-lg btn-primary" type="submit">
-                                        <span class="glyphicon glyphicon-send"></span>
-                                        Enviar
-                                    </button>
-                                </span>
-                            </form>
-                        </div>
+                <!--CHAT-->
+                <div class="col-md-9">
+                    <div class="well well-sm well-custom">
+                        <legend class="the-legend">Chat</legend>
+                        <div id="chat" class="panel-body"></div>
+                        <form id="send-message" class="input-group">
+                            <input id="message" class="form-control input-lg" type="text" placeholder="Escriba su pregunta">
+                            <span class="input-group-btn">
+                                <button class="btn btn-lg btn-primary" type="submit">
+                                    <span class="glyphicon glyphicon-send"></span>
+                                    Enviar
+                                </button>
+                            </span>
+                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-    jQuery(function($) {
-        var socket = io.connect();
-        var $messageForm = $('#send-message');
-        var $messageBox = $('#message');
-        var $chat = $('#chat');
-        var $nickForm = $('#setNick');
-        var $buttonSend = $('#send');
-        var $nickBox = $('#nickname');
-        var $passBox = $('#password');
-        var $users = $('#users');
-        var $closeAlert = $('#closeAlert');
+<script src="/socket.io/socket.io.js"></script>
+<script>
+jQuery(function($) {
+    var socket = io.connect();
+    var $messageForm = $('#send-message');
+    var $messageBox = $('#message');
+    var $chat = $('#chat');
+    var $nickForm = $('#setNick');
+    var $buttonSend = $('#send');
+    var $nickBox = $('#nickname');
+    var $passBox = $('#password');
+    var $users = $('#users');
+    var $closeAlert = $('#closeAlert');
 
-        $nickForm.click(function(e) {
-            e.preventDefault();
-            if($nickBox.val() && $passBox.val()) {
-                socket.emit('new user', $nickBox.val(), $passBox.val(), function(correct, message) {
-                    if(correct) {
-                        show_content();
-                    } else {
-                        show_login_error(message);
-                    }
-                });
-            } else {
-                show_login_error("Por favor, introduzca su nombre y contraseña");
-            }
-            $nickBox.val('');
-            $passBox.val('');
-        });
-
-        $messageForm.submit(function(e) {
-            e.preventDefault();
-            if($messageBox.val()!='') {
-                socket.emit('send message', $messageBox.val());
-                $messageBox.val('');
-            }
-        });
-
-        socket.on('new message', function(data) {
-            if (data.nick == '¬HERMES:professor') {
-                $chat.append("<b><font color=#428BCA>DOCENTE: </font></b>" + data.msg + "<br/>");
-            } else {
-                $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
-            }
-        });
-
-        socket.on('user connected', function(all_users) {
-            var users = '';
-            for (var name in all_users) {
-                users += name + '<br/>';
-            }
-            $users.html(users);
-        });
-
-        socket.on('update url', function(url) {
-            document.getElementById("youtube-video").setAttribute("src", url);
-        });
-
-        socket.on('being kicked', function(url) {
-            alert("Ha sido bloqueado por el docente.");
-            document.getElementById("youtube-video").setAttribute("src", "");
-            $users.html("");
-            window.location.href = "\\";
-        });
-
-        function show_login_error(message) {
-            document.getElementById("error-text").innerHTML = message;
-            $("#login-error").show();
-            $("#user-void").hide();
+    $nickForm.click(function(e) {
+        e.preventDefault();
+        if($nickBox.val() && $passBox.val()) {
+            socket.emit('new user', $nickBox.val(), $passBox.val(), function(correct, message) {
+                if(correct) {
+                    show_content();
+                } else {
+                    show_login_error(message);
+                }
+            });
+        } else {
+            show_login_error("Por favor, introduzca su nombre y contraseña");
         }
+        $nickBox.val('');
+        $passBox.val('');
+    });
 
-        function show_content() {
-            $("#login-error").hide();
-            $('#nickWrap').hide();
-            $('#contentWrap').show();
+    $messageForm.submit(function(e) {
+        e.preventDefault();
+        if($messageBox.val()!='') {
+            socket.emit('send message', $messageBox.val());
+            $messageBox.val('');
         }
     });
-    </script>
+
+    socket.on('new message', function(data) {
+        if (data.nick == '¬HERMES:professor') {
+            $chat.append("<b><font color=#428BCA>DOCENTE: </font></b>" + data.msg + "<br/>");
+        } else {
+            $chat.append('<b>' + data.nick + ":</b> " + data.msg + "<br/>");
+        }
+    });
+
+    socket.on('user connected', function(all_users) {
+        var users = '';
+        for (var name in all_users) {
+            users += name + '<br/>';
+        }
+        $users.html(users);
+    });
+
+    socket.on('update url', function(url) {
+        document.getElementById("youtube-video").setAttribute("src", url);
+    });
+
+    socket.on('being kicked', function(url) {
+        alert("Ha sido bloqueado por el docente.");
+        document.getElementById("youtube-video").setAttribute("src", "");
+        $users.html("");
+        window.location.href = "\\";
+    });
+
+    function show_login_error(message) {
+        document.getElementById("error-text").innerHTML = message;
+        $("#login-error").show();
+        $("#user-void").hide();
+    }
+
+    function show_content() {
+        $("#login-error").hide();
+        $('#nickWrap').hide();
+        $('#contentWrap').show();
+    }
+});
+</script>
 </body>
 </html>
