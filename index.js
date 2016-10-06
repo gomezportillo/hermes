@@ -8,6 +8,7 @@ const _professor_nickname = '¬HERMES:professor';
 const _BASE_VIDEO = "https://youtube.com/embed/FBBn72oY8nc";
 var youtube_video = _BASE_VIDEO
 var professor_connected = false;
+var repeat_users = true; //if true students with same name may connect at same time
 var blocked_users = {};
 var connected_users = {};
 var registered_users = {};
@@ -44,8 +45,8 @@ io.sockets.on('connection', function(socket) {
     socket.on('new user', function(user, password, callback) {
         load_csv_users_file();
 
-        if (connected_users[user]) { //si el estudiante ya está conectado
-            callback(false, "Ya hay un usuario con estas credenciales conectado.");
+        if (connected_users[user] && !repeat_users) { //si el estudiante ya está conectado o se pueden repetir usuarios
+                callback(false, "Ya hay un usuario con estas credenciales conectado.");
 
         } else if (registered_users[user] == password) { //si nombre y contraseña coinciden
 
