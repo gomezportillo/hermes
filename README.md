@@ -1,4 +1,4 @@
-#Hermes
+# Hermes
 Hermes es un herramienta destinada a profesores que impartan clases en streaming a través de YouTube.
 
 <p align="center">
@@ -7,6 +7,10 @@ Hermes es un herramienta destinada a profesores que impartan clases en streaming
 
 ## Instalación
 Para ejecutar Hermes necesita tener instalado [Node.js](https://nodejs.org/) en el servidor.
+
+```
+apt-get install nodejs npm
+```
 
 Si tiene algún problema con las dependecias Socket.io o Express, sitúese en el direcorio raíz y ejecute
 ```
@@ -19,6 +23,8 @@ En el servidor, sitúese en el directorio raiz y ejecute
 ```
 node index.js
 ```
+
+y abra en un navegador [localhost:8080](http://localhost:8080).
 
 ## Uso
 Hermes permite desplegar un servidor en Node.js que ofrece dos páginas web desarrolladas con [Bootstrap](http://getbootstrap.com/) para los dos roles posibles,
