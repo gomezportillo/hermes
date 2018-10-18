@@ -5,8 +5,11 @@
   "main": "index.js",
   "repository": "blog.uclm.es/cted",
   "author": "C:TED <cted@uclm.es>",
-  "dependencies": {
-    "express": "~3.2.4",
-    "socket.io": "~0.9.14"
-  }
+  "dependencies":
+  {
+    "express": "latest",
+    "socket.io": "latest"
+  },
+  "author": "Pedro Manuel Gómez-Portillo López <pedromanuel.gomezportillo@gmail.com>",
+  "license": "UNLICENSED"
 }
